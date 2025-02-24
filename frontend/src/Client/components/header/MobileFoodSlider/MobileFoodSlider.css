@@ -1,0 +1,129 @@
+.mobile-food-slider {
+    height: 25vh;
+    max-height: 200px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.mobileslide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    flex: 0 0 100%;
+}
+
+.mobileslide .mobileslideimg {
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    width: 50%;
+    height: 85%;
+    object-fit: cover;
+    z-index: 2;
+}
+
+.mobileslide .mobileslideimg img {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mobileslide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('1.jpg') no-repeat center center/cover;
+    z-index: 1;
+}
+
+.text-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    position: absolute;
+    right: 10px;
+    gap: 5px;
+    top: 6px;
+    z-index: 3;
+    width: 45%;
+}
+
+.button-order {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button-order:hover {
+    background-color: #e5533d;
+}
+
+.product-category {
+    font-size: 0.7rem;
+    color: #fff;
+    background: rgba(255, 159, 67, 0.9);
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.progress-dots {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #fff;
+    transform: scale(1.3);
+}

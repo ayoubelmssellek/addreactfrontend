@@ -1,0 +1,120 @@
+.DISKProductContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    max-width: 1200px;
+    margin-top: 70px;
+    padding: 40px;
+  }
+  
+  .DISKimag {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .DISKimag img {
+    width: 450px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .DISKmainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .DISKproductInfo h1 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .DISKproductInfo h4 {
+    font-size: 18px;
+    color: gray;
+  }
+  
+  .DISKproductInfo p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .DISKpriceandbutton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+ 
+  .DISKpriceandbutton .favoriteIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 3px;
+    color: rgb(0, 0, 0);
+    z-index: 100;
+    margin-left: 50%;
+  } 
+  .DISKpriceandbutton .active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        border-radius: 50%;
+    padding: 3px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 13, 0);
+    margin-left: 50%;
+  }
+  .DISKpriceandbutton h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: rgb(0, 0, 0);
+  }
+  
+  .DISKpriceandbutton button {
+    background-color: #ff6600;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 10em;
+  }
+  
+  .DISKpriceandbutton button svg {
+    margin-left: 8px;
+  }
+  
+  .DISKInc_or_dec_amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+  }
+  
+  .DISKInc_or_dec_amount img {
+    width: 3em;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .DISKProductContent {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  
+    .DISKpriceandbutton {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

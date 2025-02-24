@@ -1,0 +1,102 @@
+
+/* Base Styles */
+.dashboard {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: #f7fafc; /* Light background color */
+}
+
+/* Sidebar */
+.sidebar {
+}
+
+.all-badges{
+  height: auto;
+  width: 100%;
+  margin-top: 0 !important;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 5rem; /* Default margin when sidebar is closed */
+}
+
+.push-main-content {
+  margin-left: 12rem; /* Adjusted margin when sidebar is open */
+}
+
+/* Navbar */
+.navbar {
+  padding: 1rem;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* First Section */
+.first-section {
+  margin-top: 3em;
+
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  flex: 1;
+}
+
+.orders-table {
+  width: 70%;
+  flex: 2;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+/* Second Section */
+.second-section {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.orders-and-sales-chart {
+  width: 30%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .first-section, .second-section {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-left: 0; /* Remove margin on smaller screens */
+  }
+
+  .push-main-content {
+    margin-left: 0; /* Remove margin on smaller screens */
+  }
+}

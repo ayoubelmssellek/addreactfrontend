@@ -1,0 +1,70 @@
+
+.badge-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
+    width: fit-content;
+    padding: 10px;
+    position: relative;
+    margin: 5px;
+
+}
+.badge-card > *{
+    margin-inline: 5px;
+    color: #000;
+}
+.badge-card .badge-header{
+  display: flex;
+  justify-content: space-between;
+}
+.badge-card .badge-header .badge-icon{
+    background-color: burlywood;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    color: #ffffff;
+}
+.badge-card .badge-header .black{
+    background: linear-gradient(195deg, #42424a, #191919);
+    box-shadow: 0rem 0.25rem 1.25rem 0rem rgba(0, 0, 0, 0.14), 0rem 0.4375rem 0.625rem -0.3125rem rgba(64, 64, 64, 0.4);
+
+}
+.badge-card .badge-header .blue{
+    background: linear-gradient(195deg, #49a3f1, #1A73E8);
+    box-shadow: 0rem 0.25rem 1.25rem 0rem rgba(0, 0, 0, 0.14), 0rem 0.4375rem 0.625rem -0.3125rem rgba(0, 187, 212, 0.4);
+}
+.badge-card .badge-header .green{
+    background: linear-gradient(195deg, #66BB6A, #43A047);
+    box-shadow: 0rem 0.25rem 1.25rem 0rem rgba(0, 0, 0, 0.14), 0rem 0.4375rem 0.625rem -0.3125rem rgba(76, 175, 79, 0.4);
+}
+.badge-card .badge-header .pink{
+    background: linear-gradient(195deg, #EC407A, #D81B60);
+    box-shadow: 0rem 0.25rem 1.25rem 0rem rgba(0, 0, 0, 0.14), 0rem 0.4375rem 0.625rem -0.3125rem rgba(233, 30, 98, 0.4);
+}
+.title-and-number{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.title-and-number h3{
+    float: right;
+}
+.title-and-number h2{
+    color: #7b809a;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+.badge-card .growth{
+    margin-top: 80px;
+    font-size: 0.7em;
+    opacity: 0.55;
+}

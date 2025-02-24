@@ -1,0 +1,104 @@
+/* Base Styles */
+.add-product-form {
+    max-width: 28rem; /* max-w-md */
+    margin: 1.25rem auto; /* mt-5 mx-auto */
+    padding: 1.5rem; /* p-6 */
+    background-color: #ffffff; /* bg-white */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+}
+
+.form-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    text-align: center; /* text-center */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.error-message {
+    color: #ef4444; /* text-red-500 */
+    font-size: 0.875rem; /* text-sm */
+    display: block; /* block */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    font-size: 1rem; /* text-base */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #3b82f6; /* focus:ring-blue-500 */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 */
+}
+
+/* File Upload Section */
+.file-input {
+    display: none; /* hidden */
+}
+
+.file-upload-label {
+    width: 100%;
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-label:hover {
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
+}
+
+.image-preview {
+    width: 12rem; /* w-48 */
+    height: 9rem; /* h-36 */
+    border-radius: 0.5rem; /* rounded-lg */
+    object-fit: cover;
+}
+
+/* Submit Button */
+.submit-button {
+    width: 100%;
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    font-weight: 600; /* font-semibold */
+    border: none;
+    border-radius: 0.5rem; /* rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button.active {
+    background-color: #3b82f6; /* bg-blue-500 */
+    color: #ffffff; /* text-white */
+}
+
+.submit-button.active:hover {
+    background-color: #2563eb; /* hover:bg-blue-600 */
+}
+
+.submit-button.disabled {
+    background-color: #9ca3af; /* bg-gray-400 */
+    color: #ffffff; /* text-white */
+    cursor: not-allowed; /* cursor-not-allowed */
+}
+
+
+.pages{
+    margin-top: 50px;
+}

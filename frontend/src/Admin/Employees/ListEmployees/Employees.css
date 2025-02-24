@@ -1,0 +1,5 @@
+.Filter-Add-ListEmployees{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

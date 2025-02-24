@@ -1,0 +1,126 @@
+/* Base Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: #1a202c; /* bg-gray-900 */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+  }
+  
+  .sidebar-open {
+    width: auto;
+    max-width: 20rem; /* max-w-xs */
+  }
+  
+  .sidebar-closed {
+    width: 4rem; /* w-16 */
+  }
+  
+  /* Sidebar Header */
+  .sidebar-header {
+    padding: 1rem;
+    margin-top: 1.25rem; /* mt-5 */
+    border-bottom: 1px solid #4a5568; /* border-gray-700 */
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-icon {
+    font-size: 1.5rem; /* text-2xl */
+    flex-shrink: 0;
+  }
+  
+  .sidebar-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    margin-left: 0.75rem; /* ml-3 */
+    transition: opacity 0.3s;
+  }
+  
+  .visible {
+    opacity: 1;
+  }
+  
+  .hidden {
+    opacity: 0;
+    display: none;
+  }
+  
+  /* Sidebar Menu */
+  .sidebar-menu {
+    flex: 1;
+    padding: 1rem;
+    padding-top: 1.5rem; /* py-6 */
+    padding-bottom: 1.5rem; /* py-6 */
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem; /* p-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+    text-decoration: none;
+    color: white;
+  }
+  
+  .hoverable:hover {
+    background-color: #1757c5; /* hover:bg-gray-800 */
+  }
+  
+  .menu-icon {
+    font-size: 1.5rem; /* text-2xl */
+    flex-shrink: 0;
+  }
+  
+  .menu-text {
+    margin-left: 0.75rem; /* ml-3 */
+    transition: opacity 0.3s;
+  }
+  
+  /* Toggle Button */
+  .toggle-button {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem; /* p-3 */
+    width: 100%;
+    border-radius: 0.5rem; /* rounded-lg */
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  
+  .toggle-icon {
+    font-size: 1.5rem; /* text-2xl */
+    flex-shrink: 0;
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: -0.625rem; /* top-[-10px] */
+    right: -0.9375rem; /* right-[-15px] */
+    background-color: #2d3748; /* bg-gray-800 */
+    color: white;
+    padding: 0.5rem; /* p-2 */
+    border-radius: 9999px; /* rounded-full */
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .close-icon {
+    color: black; /* text-black */
+    font-size: 1.25rem; /* size={20} */
+  }
+  
+  /* Sidebar Footer */
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid #4a5568; /* border-gray-700 */
+  }

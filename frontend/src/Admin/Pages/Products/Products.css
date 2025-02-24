@@ -1,0 +1,272 @@
+/* Base Styles */
+.content {
+  display: flex;
+  background-color: #f7fafc; /* Light background color */
+}
+
+.all-badges {
+  flex: 1;
+  margin-left: 5rem; /* Default margin when sidebar is closed */
+  transition: margin-left 0.3s ease;
+}
+
+.push-main-content {
+  margin-left: 20rem; /* Adjusted margin when sidebar is open */
+}
+
+.pages {
+  padding: 1rem;
+}
+
+
+/* Filters Container */
+.filters-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem; /* space-x-4 */
+  padding: 1rem;
+  background-color: #ffffff; /* Light background */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+/* Filter Input */
+.filter-input {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+}
+
+.filter-input input {
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #1a202c; /* Border color */
+  background-color: transparent;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.filter-input input:focus {
+  border-bottom: 2px solid #3182ce; /* Focus border color */
+}
+
+.filter-input label {
+  position: absolute;
+  top: -.2rem;
+  left: 0;
+  font-size: 0.875rem;
+  color: #4a5568; /* Label color */
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.filter-input input:focus + label,
+.filter-input input:not(:placeholder-shown) + label {
+  top: -.6rem;
+  font-size: 0.75rem;
+  color: #3182ce; /* Focus label color */
+}
+
+/* Filter Select */
+.filter-select {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+}
+
+.filter-select select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb; /* Border color */
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select select:focus {
+  border-color: #3182ce; /* Focus border color */
+}
+
+/* Clear Button */
+.clear-button {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #3182ce; /* bg-blue-500 */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px; /* rounded-md */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-button:hover {
+  background-color: #2c5282; /* hover:bg-blue-600 */
+}
+
+/* Dark Mode (Optional) */
+@media (prefers-color-scheme: dark) {
+  .filters-container {
+      background-color: #2d3748; /* Dark background */
+  }
+
+  .filter-input input {
+      border-bottom-color: #4a5568; /* Dark border color */
+      color: #f7fafc; /* Dark text color */
+  }
+
+  .filter-input input:focus {
+      border-bottom-color: #63b3ed; /* Dark focus border color */
+  }
+
+  .filter-input label {
+      color: #a0aec0; /* Dark label color */
+  }
+
+  .filter-input input:focus + label,
+  .filter-input input:not(:placeholder-shown) + label {
+      color: #63b3ed; /* Dark focus label color */
+  }
+
+  .filter-select select {
+      border-color: #4a5568; /* Dark border color */
+      background-color: #2d3748; /* Dark background */
+      color: #f7fafc; /* Dark text color */
+  }
+
+  .filter-select select:focus {
+      border-color: #63b3ed; /* Dark focus border color */
+  }
+
+  .clear-button {
+      background-color: #4299e1; /* Dark button color */
+  }
+
+  .clear-button:hover {
+      background-color: #3182ce; /* Dark hover button color */
+  }
+}
+
+
+
+/* Table Container */
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff; /* Table background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Table shadow */
+}
+
+.products-table th,
+.products-table td {
+  padding: 0.75rem 1rem; /* Cell padding */
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb; /* Border color */
+}
+
+.products-table th {
+  background-color: #f9fafb; /* Header background color */
+  font-weight: 600;
+  color: #374151; /* Header text color */
+}
+
+.products-table td img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #4a5568; /* Button color */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: -50px;
+  top: -30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: #4a5568;
+}
+
+.dropdown-content a:hover {
+  background-color: #f7fafc;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* No Products Message */
+.no-products {
+  text-align: center;
+  color: #718096;
+  margin-top: 2rem;
+}
+
+/* Dark Mode (Optional) */
+@media (prefers-color-scheme: dark) {
+  .content {
+      background-color: #1a202c;
+  }
+
+  .products-table {
+      background-color: #2d3748;
+  }
+
+  .products-table th,
+  .products-table td {
+      color: #f7fafc;
+      border-bottom-color: #4a5568;
+  }
+
+  .products-table th {
+      background-color: #4a5568;
+  }
+
+  .dropdown-content {
+      background-color: #2d3748;
+  }
+
+  .dropdown-content a {
+      color: #f7fafc;
+  }
+
+  .dropdown-content a:hover {
+      background-color: #4a5568;
+  }
+
+  .no-products {
+      color: #a0aec0;
+  }
+}

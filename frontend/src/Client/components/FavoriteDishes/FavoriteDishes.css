@@ -1,0 +1,197 @@
+.ThereISNoDhishes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+
+}
+.FavoriteContent .GOABCKandtitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 110px 0px 0px 20px;
+    
+}
+.FAVfood-display-list {
+    
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 20px; 
+    padding-bottom: 20px;
+    width: 100%;
+    justify-content: center;
+    height: auto;
+}
+
+.FAVfood-display-list .FAVcart {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    display: flex;
+    text-align: center;
+    background-color: #f4f4f8;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px #00000015;
+}
+
+.FAVfood-display-list .FAVcart img:first-of-type {
+    display: flex;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.FAVfood_item_info {
+    display: grid;
+    grid-template-rows: auto auto;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    gap: 0;
+}
+
+.FAVfood_item_img_raiting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+    padding: 0;
+}
+
+.FAVfood_item_img_raiting p {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.FAVfood_item_price {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.FAVprice_and_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+}
+
+.FAVfood_item_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 6px;
+    border: none;
+    width: 100%;
+    background-color: #ff724c;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.FAVinc_or_dec_amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: azure;
+    border-radius: 15px;
+    margin: 0;
+    padding: 5px;
+}
+
+
+@media (max-width: 1200px) {
+    .FAVfood-display-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .FAVfood-display-list .FAVcart {
+        max-width: 100%; 
+    }
+}
+
+@media (max-width: 992px) {
+    .FAVfood-display-list {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+    .FAVfood-display-list .FAVcart {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .FavoriteContent .GOABCKandtitle{
+    
+        margin: 50px 0px 0px 20px;
+        
+    }
+    .FAVfood-display-list {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 5px;
+        text-align: center;
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .FAVfood-display-list .FAVcart {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 576px) {
+    .FAVfood-display-list {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+        padding: 0 10px;
+        padding-bottom: 70px;
+        height: auto; 
+
+    }
+
+    .FAVfood-display-list .FAVcart {
+        max-width: 100%; 
+    }
+
+    .FAVfood_item_img_raiting p {
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .FAVfood-display-list {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    .FAVfood-display-list .cart {
+        max-width: 100%; 
+    }
+    .FAVfood_item_button {
+    padding: 6px;
+    border: none;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    margin: 0;
+}
+}

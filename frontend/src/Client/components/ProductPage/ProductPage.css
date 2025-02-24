@@ -1,0 +1,170 @@
+.ProductContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ffbf00,tomato); 
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    
+}
+
+.HeaderContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.GobackandNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    font-size: 18px;
+    font-weight: bold;
+}
+.GobackandNav .bagfill{
+    position: relative;
+}
+.GobackandNav .bagfill span{
+    position: absolute;
+    top: 0px;
+    right: 0;
+    color: azure;
+    background-color: red;
+    border-radius: 50% ;
+    font-size: 12Px;
+    width: 15px;
+    text-align: center;
+}
+
+.imag {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.imag img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2); /* ظل للصورة */
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: rgb(255, 255, 255); /* لون داكن */
+    border-radius: 40px 40px 0 0;
+    padding: 20px;
+    position: absolute;
+    top: 30%;
+    bottom: 0;
+    left: 0;
+    min-height: 50vh;
+    box-shadow: 0px -10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.priceandbutton .favoriteIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: 40px;
+    padding: 4px;
+    color: rgb(0, 0, 0);
+    z-index: 100;
+    background-color: rgb(241, 227, 226);
+
+}
+.priceandbutton  .price{
+    font-weight: 800;
+    color: #000000 !important;
+}
+ .priceandbutton .active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: 40px;
+
+    padding: 4px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 13, 0);
+}
+
+.productInfo {
+    width: 100%;
+    margin-top: 35%;
+    text-align: start;
+    color: rgb(0, 0, 0);
+}
+
+.productInfo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.productInfo h4 {
+    font-size: 18px;
+    color: #ffbf00;
+    margin: 5px 0;
+}
+
+.productInfo p {
+    font-size: 14px;
+    color: #000000;
+    padding: 10px;
+    max-width: 90%;
+}
+
+.priceandbutton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 20%;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.priceandbutton h1 {
+    color: rgb(0, 0, 0);
+    font-size: 22px;
+}
+
+.priceandbutton button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(to bottom, #ffbf00,tomato); /* لون جذاب */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.priceandbutton button:hover {
+    background-color: #ff9f00;
+}
+.priceandbutton .Inc_or_dec_amount{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
