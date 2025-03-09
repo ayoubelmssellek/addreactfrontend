@@ -1,95 +1,154 @@
-import React, { useState, useEffect } from "react";
-import "primeicons/primeicons.css";
-import { MdAddShoppingCart } from "react-icons/md";
-import './Fooddesplay.css'
-import { assets, food_list } from "../../assets/assets";
+import React, { useState } from "react";
+import { MdAddShoppingCart, MdRemove, MdAdd, MdVisibility, MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import styles from './Fooddesplay.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { addTo_Cart, DicreaseQuantity } from "../../actions/action";
+import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from "../../actions/action";
 import { Link } from "react-router-dom";
 
 const FoodDisplay = () => {
-  const CartItems = useSelector((state) => state.client.cartItems);
-  const listorders = useSelector((state) => state.client.orders);
+  const [showDrinkPopup, setShowDrinkPopup] = useState(false);
+    const CartItems = useSelector((state) => state.client.cartItems);
+    const food_list = useSelector((state) => state.admin.produits);
+    console.log(food_list);
     
- 
+    const FavoriteList = useSelector((state) => state.client.Favorite);
+    const dispatch = useDispatch();
 
-  const isInCart = (id) => {
-    return CartItems.some((item) => item._id === id);
-  };
+    const isInCart = (id) => CartItems.some((item) => item._id === id);
+    const isitClicked = (id) => FavoriteList?.some(item => item._id === id);
 
+    const handelAddItem = (produit) => {
+         dispatch(addTo_Cart(produit));
+         setShowDrinkPopup(true)
+    };
 
-
-  const dispatch = useDispatch();
-
-  const handelAddItem = (produit) => {
-    dispatch(addTo_Cart(produit));
-  };
-
-  const DicreaseProdectQauntity = (id, item) => {
-    dispatch(DicreaseQuantity(id, item));
-  };
-
-
-   
-  return (
+    const DicreaseProdectQauntity = (id) => dispatch(DicreaseQuantity(id));
+    const handelAddToFavorite = (product, id) => dispatch(addTo_Favorite(product, id));
+    const handleAddDrinks = (selectedDrinks) => {
+      // Add to your existing cart system
+     alert('Selected drinks:', selectedDrinks);
+    };
   
-        <div className="Food-desplay">
-      <hr/>
-      
-      <h1 dir="rtl"  className="QategoryName">أشهر الأطباق</h1>
-        <div className="Food-desplay-list">
-          {listorders.map((produit) => (
-             produit.items.map((produit)=>(
-              <div key={produit.id} className="Cart" >
-              <Link to={`/product/${produit.id}`}>
-               <img src={produit.image} alt={produit.name}  loading="lazy"/>
-              </Link>
-            
-              <div className="Food_item_info">
-                <div className="Food_item_img_raiting">
-                
-                <p><Link to={`/product/${produit.id}`}>{produit.name} </Link></p>
-               
-                </div>
-                {/* <p className="food_item_desc">{item.description}</p> */}
-                <div className="Price_and_button">
-                  <p className="Food_item_price"><bdi style={{marginRight:'7px'}}>درهم</bdi> {produit.price}.00</p>
-                  {!isInCart(produit.id) ? (
-                    <button
-                      className="Food_item_button"
-                      onClick={() => handelAddItem(produit)}
-                    >
-                   <MdAddShoppingCart size={30} />  أضف إلى السلة
-                    </button>
-                  ) : (
-                    <div className="Inc_or_dec_amount">
-                      <img loading='lazy'
-                        onClick={() => DicreaseProdectQauntity(produit.id, produit)}
-                        src={assets.remove_icon_red}
-                        alt="Remove"
-                      />
-                      <strong>
-                        {CartItems.find((cartitem) => cartitem.id === produit.id)
-                          ?.Quantity}
-                      </strong>
-                      <img loading='lazy'
-                        onClick={() => handelAddItem(produit)}
-                        src={assets.add_icon_green}
-                        alt="Add"
-                      />
+    return (
+        <>
+        <div className={styles["Food-desplay"]}>
+            <h1 className={styles.QategoryName}>أشهر الأطباق</h1>
+            <div className={styles["Food-desplay-list"]}>
+                {food_list.slice(-10).map((produit) => (
+                    <div key={produit._id} className={styles.Cart}>
+                     
+                        <div className={`${styles.ImageContainer}   ${produit.statu == 'out_of_stock' ? styles.OutOfStockOverlay : ''} `}>
+                            <img 
+                                src={produit.image} 
+                                alt={produit.name} 
+                                className={styles.ProductImage}
+                                loading="lazy" 
+                            />
+                            
+                             {produit.statu == 'out_of_stock' && (
+                                <div className={styles.OutOfStock}>غير متوفر</div>
+                            )}
+                             
+                            <button
+                                className={`${styles.FavoriteButton} ${
+                                    isitClicked(produit._id) ? styles.active : ''
+                                }`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handelAddToFavorite(produit, produit._id);
+                                }}
+                                disabled={produit.statu =='out_of_stock'}
+                            >
+                                {isitClicked(produit._id) ? (
+                                    <MdFavorite className={styles.favoriteIcon} size={24} />
+                                ) : (
+                                    <MdFavoriteBorder className={styles.favoriteIcon} size={24} />
+                                )}
+                            </button>
+                        </div>
+                        
+                        <div className={styles.ProductContent}>
+                            <div className={styles.ProductHeader}>
+                                <Link to={`/product/${produit._id}`} className={styles.ProductTitle}>
+                                    {produit.name}
+                                </Link>
+                                <div className={styles.PriceContainer}>
+                                    <span className={styles.ProductPrice}>
+                                        <bdi>درهم</bdi> {produit.oldPrice <  produit.price ? produit.oldPrice : ''}
+                                    </span>
+                                    {/* {produit.oldPrice && ( */}
+                                        <span className={styles.oldPrice}>
+                                          {produit.price}
+                                        </span>
+                                    {/* )} */}
+                                </div>
+                            </div>
+                            
+                            {produit.description && (
+                                <p className={styles.ProductDescription}>
+                                    {produit.description}
+                                </p>
+                            )}
+                            
+                            <div dir="ltr" className={styles.ProductFooter}>
+                                {produit.category && (
+                                    <span className={styles.CategoryTag}>
+                                        {produit.category}
+                                    </span>
+                                )}
+                                
+                                <div dir="ltr" className={styles.ActionButtons}>
+                                    <Link 
+                                        to={`/product/${produit._id}`}
+                                        className={`${styles.IconButton} ${styles.ViewButton}`}
+                                    >
+                                        <MdVisibility size={20} />
+                                    </Link>
+                                    
+                                     {produit.statu=='out_of_stock' ? (      
+                                         <button
+                                            className={`${styles.IconButton} ${styles.CartButton} ${styles.DisabledButton}`}
+                                            disabled
+                                        >
+                                            <MdAddShoppingCart size={20} />
+                                        </button> 
+                                      ) :!isInCart(produit._id) ? (
+                                        <button
+                                            className={`${styles.IconButton} ${styles.CartButton}`}
+                                            onClick={() => {
+                                              handelAddItem(produit)
+                                            }}
+                                        >
+                                            <MdAddShoppingCart size={20} />
+                                        </button>
+                                    ) : (
+                                        <div className={styles.QuantityControls}>
+                                            <button
+                                                className={styles.QuantityButton}
+                                                onClick={() => DicreaseProdectQauntity(produit._id)}
+                                            >
+                                                <MdRemove size={20} />
+                                            </button>
+                                            <span>
+                                                {CartItems.find(item => item._id === produit._id)?.Quantity}
+                                            </span>
+                                            <button
+                                                className={styles.QuantityButton}
+                                                onClick={() => handelAddItem(produit)}
+                                            >
+                                                <MdAdd size={20} />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                ))}
             </div>
-             ))
-          ))}
         </div>
-    </div>
-      
-    
-    
-  );
+        </>
+    );
 };
 
 export default FoodDisplay;

@@ -1,141 +1,140 @@
-import { useSelector,useDispatch } from "react-redux";
-import { useParams,useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import Sidebar from "../../Sidebar/Sidebar";
-import Navbar from "../../Navbar/Navbar";
-import {EditEmployee } from "../../Redux/Action";
-const UpdateEmployees = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const Empls = useSelector((state) => state.admin.Employees); // Get products from Redux store
-    const { role,Code } = useParams();
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
+import { EditEmployee } from "../../Redux/Action";
+import '../ListEmployees/Employees.css'
+
+const UpdateEmployees = ({ Code, employee, onClose }) => {
+    const Empls = useSelector((state) => state.admin.Employees); // Get employees from Redux store
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-  
-    const [product, setProduct] = useState(null); // Local state for product data
 
-
-    const [Name_Employee, setName_Employee] = useState('');
-    const [Role_employee, setRole_employee] = useState('');
-    const [Salary_Employee, setSalary_Employee] = useState('');
-    const [Total_Avence_Employee, setTotal_Avence_Employee] = useState('');
-    const [error, setError] = useState('');
-  
-
-       // Find the product to update from the Redux store
+    // State to manage form fields
+    const [formData, setFormData] = useState({
+        Name: '',
+        Role: '',
+        Salary: '',
+        Total_Avence: ''
+    });
+    
+    // Populate form fields when the employee prop changes
     useEffect(() => {
-    const SelectedEmp = Empls.find((emp) => Number(emp.Id_Employee )=== Number(Code));
-    if (SelectedEmp) {
-      setProduct(SelectedEmp);
-      setName_Employee(SelectedEmp.Name_Employee);
-      setRole_employee(SelectedEmp.Role_employee);
-      setSalary_Employee(SelectedEmp.Salary_Employee);
-      setTotal_Avence_Employee(SelectedEmp.Total_Avence_Employee);
+        if (employee) {
+            setFormData({
+                Name_Employee: employee.Name_Employee || '',
+                Role_employee: employee.Role_employee || '',
+                Salary_Employee: employee.Salary_Employee || '',
+                Total_Avence_Employee: employee.Total_Avence_Employee || ''
+            });
+        }
+    }, [employee]);
 
-    } else {
-        navigate(`/admin/Dashboard/${role}/Products`); // If no product found, redirect
-    }
-   },[Code, Empls, navigate,role]);
-
-    // Fetching Role from existing Roles
+    // Fetching unique roles from existing employees
     const Roles = [...new Set(Empls.map((emp) => emp.Role_employee))];
-  
-   const isFormValid = Name_Employee && Role_employee && Salary_Employee ;
-  
-  
-      // Function to update the state when Sidebar changes
-        const handleSidebarStateChange = (newState) => {
-          setIsOpen(newState);
-      };
-  
-  
+
+    // Check if the form is valid
+    const isFormValid = formData.Name_Employee && formData.Role_employee && formData.Salary_Employee;
+
+    // Handle input changes
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-  
-        if (!isFormValid) {
-            setError('Please fill all fields');
-            return;
-        }
-  
-        const newEmp = {
-            Id_Employee: Code ,
-            Name_Employee: Name_Employee,
-            Role_employee: Role_employee,
-            Salary_Employee: Salary_Employee, 
-            Total_Avence_Employee: Total_Avence_Employee
-           
+
+        // Create the updated employee object
+        const updatedEmp = {
+            ...employee,
+            ...formData
         };
-         dispatch(EditEmployee(Code,newEmp));
-         navigate(`/admin/Dashboard/${role}/Employees`);
-    }  
-    if (!product) {
-        return <div>Loading...</div>; // Show loading state until product is found
-      }
 
-  return (
-        <div className="content">
-            <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
-            <div className={`all-badges container ${isOpen ? 'push-main-content' : 'ml-20'}`}>
-                <Navbar  pagePath='Update Product'/>
-                <div className="pages">
-                <form className="add-product-form" onSubmit={handleSubmit}>
-            <p className="form-title">Update Product</p>
-            {error && <span className="error-message">{error}</span>}
+        // Dispatch the update action
+        dispatch(EditEmployee(Code, updatedEmp));
 
-            <div className="form-group">
-                <input
-                    type="text"
-                    placeholder="Enter Product Name"
-                    value={Name_Employee}
-                    onChange={(e) => setName_Employee(e.target.value)}
-                />
-            </div>
+        // Close the modal
+        onClose();
+    };
 
-            <div className="form-group">
-                <select
-                    value={Role_employee}
-                    onChange={(e) => setRole_employee(e.target.value)}
-                >
-                    <option value="">Choose Role</option>
-                    {Roles.map((category, index) => (
-                        <option key={index} value={category}>
-                            {category}
-                        </option>
-                    ))}
-                </select>
-            </div>
+    return (
+        <div className="update-product-form">
+            <form className="add-employee" onSubmit={handleSubmit}>
+                <p className="title">Update Employee</p>
 
-            <div className="form-group">
-                <input
-                    type="number"
-                    placeholder="Enter Quantity"
-                    value={Salary_Employee}
-                    onChange={(e) => setSalary_Employee(e.target.value)}
-                />
-            </div>
+                {/* Name Input */}
+                <label>
+                    <input
+                        type="text"
+                        name="Name_Employee"
+                        placeholder="Enter Employee Name"
+                        value={formData.Name_Employee}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </label>
 
-            <div className="form-group">
-                <input
-                    type="number"
-                    placeholder="Enter Quantity"
-                    value={Total_Avence_Employee}
-                    onChange={(e) => setTotal_Avence_Employee(e.target.value)}
-                />
-            </div>
+                {/* Role Select */}
+                <label>
+                    <select
+                        name="Role_employee"
+                        value={formData.Role_employee}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Choose Role</option>
+                        {Roles.map((role, index) => (
+                            <option key={index} value={role}>
+                                {role}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <button
-                type="submit"
-                className={`submit-button ${isFormValid ? 'active' : 'disabled'}`}
-                disabled={!isFormValid}
-            >
-                Update Employee
-            </button>
-        </form>
+                {/* Salary Input */}
+                <label>
+                    <input
+                        type="number"
+                        name="Salary_Employee"
+                        placeholder="Enter Employee Salary"
+                        value={formData.Salary_Employee}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </label>
+
+                {/* Total Advance Input */}
+                <label>
+                    <input
+                        type="number"
+                        name="Total_Avence_Employee"
+                        placeholder="Enter Total Advance"
+                        value={formData.Total_Avence_Employee}
+                        onChange={handleInputChange}
+                    />
+                </label>
+
+                {/* Action Buttons */}
+                <div className='action-and-cancel-btn'>
+                    <button className="update-product-btn" type="submit" disabled={!isFormValid}>
+                        Update Employee
+                    </button>
+                    <button className="cancel-product-btn" type="button" onClick={onClose}>
+                        Cancel
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
-  )
-}
+    );
+};
 
-export default UpdateEmployees
+export default UpdateEmployees;
+
+UpdateEmployees.propTypes = {
+    employee: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    Code: PropTypes.number.isRequired,
+};

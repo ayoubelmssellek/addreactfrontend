@@ -1,0 +1,85 @@
+/* Container for the list */
+.sales-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  border-radius: 12px;
+  padding-left: 10px;
+}
+
+/* Individual list items */
+.sales-list li {
+
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sales-list li:last-child {
+  border-bottom: none;
+}
+
+/* Count and Name Section */
+.count-and-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.count-and-name div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.count-and-name div {
+  font-size: 20px;
+  font-weight: 600;
+}
+.count-and-name h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.count-and-name h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Timestamp */
+.sales-list small {
+  font-size: 0.875rem;
+}
+
+/* Header Section */
+.sales-header {
+  margin-bottom: 20px;
+}
+
+.sales-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sales-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.sales-subtitle .material-icons-round {
+  font-size: 1rem;
+}
+
+
+.hr-and-ul{
+  display: flex;
+  gap: 10px;
+}

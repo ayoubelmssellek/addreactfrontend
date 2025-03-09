@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaChevronDown, FaBox, FaCheckCircle, FaTruck, FaRedoAlt, FaArrowRight } from "react-icons/fa";
+import { FaChevronDown, FaBox, FaCheckCircle, FaMotorcycle, FaRedoAlt, FaArrowRight } from "react-icons/fa";
 import styles from "./OrderHistory.module.css";
 import { Navbar } from "../navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,11 +26,12 @@ const OrderHistory = () => {
     dispatch(setReorder(order));
     navigator("/shoupingCart"); 
   };
-  
+
   
 
   return (
     <>
+    <Navbar/>
       <div className={styles.orderHistoryContainer}>
         <div className={styles.orderHistoryHeader}>
           <h1><FaBox className={styles.headerIcon} /> سجل الطلبات</h1>
@@ -40,7 +41,7 @@ const OrderHistory = () => {
               <span>{orders.length} طلب مكتمل</span>
             </div>
           </div>
-          <button className={styles.backButton} onClick={() => navigator(-1)}>
+          <button dir="ltr" className={styles.backButton} onClick={() => navigator(-1)}>
           <FaArrowRight className={styles.backIcon} />
           رجوع
         </button>
@@ -48,7 +49,7 @@ const OrderHistory = () => {
 
         <div className={styles.ordersList}>
           {orders.length > 0 ? (
-            orders.map((order) => (
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((order) => (
               <div className={styles.orderItem} key={order.id}>
                 <div className={styles.orderHeader} onClick={() => toggleOrder(order.id)}>
                   <div className={styles.orderMainInfo}>
@@ -58,12 +59,12 @@ const OrderHistory = () => {
                       className={styles.trackOrderBtn}
                       onClick={(e) => handleTrackOrder(order.id, e)}
                     >
-                      <FaTruck /> تتبع الطلب
+                      <FaMotorcycle /> تتبع الطلب
                     </button>
                   </div>
                   <div className={styles.orderStatus}>
                     <span className={`${styles.statusbefore}`}>
-                      {order.statusbefore}
+                      {order.statusOrder}
                     </span>
                     <FaChevronDown className={`${styles.expandIcon} ${expandedOrder === order.id ? styles.expanded : ""}`} />
                   </div>

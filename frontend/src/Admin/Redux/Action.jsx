@@ -17,7 +17,12 @@ export const Edit=(id,newProduit)=>{
     payload:{id,newProduit}
   }
 }
-
+export const EditState=(name,newState)=>{
+  return{
+    type:'UPDATE_PRODUCT_state',
+    payload:{name,newState}
+  }
+}
 // Employees Actions
 
 export const AddEmployee=(id)=>{
@@ -52,3 +57,24 @@ export const ClearNotificationListe=()=>{
       
   }
 }
+
+export const UpdateOrderStatus = (orderId, newStatus) => ({
+  type: 'UPDATE_ORDER_STATUS',
+  payload: { orderId, newStatus },
+});
+
+// delete category by name
+export const UPDATE_CATEGORY_STATUS = (name,status) => ({
+  type: 'UPDATE_CATEGORY_STATUS',
+  payload: { name, status }
+});
+// Add category 
+export const ADDCategory = (newCategory) => ({
+  type: 'ADD_Category',
+  payload: {newCategory},
+});
+
+export const HandelReview = (id,statu) => ({
+  type: 'HANDEL_REVIEW',
+  payload: {id,statu},
+});

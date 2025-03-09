@@ -1,11 +1,14 @@
 /* Base Styles */
 .add-product-form {
-    max-width: 28rem; /* max-w-md */
+    width: 500px;
+    position: fixed;
+    top: 5%;
+    left: 40%;
     margin: 1.25rem auto; /* mt-5 mx-auto */
     padding: 1.5rem; /* p-6 */
     background-color: #ffffff; /* bg-white */
     border-radius: 0.5rem; /* rounded-lg */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    box-shadow: 0 14px 16px rgba(0, 0, 0, 0.6); /* shadow-md */
 }
 
 .form-title {
@@ -14,7 +17,6 @@
     text-align: center; /* text-center */
     margin-bottom: 1rem; /* mb-4 */
 }
-
 .error-message {
     color: #ef4444; /* text-red-500 */
     font-size: 0.875rem; /* text-sm */
@@ -75,12 +77,14 @@
 /* Submit Button */
 .submit-button {
     width: 100%;
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    font-weight: 600; /* font-semibold */
+    padding: 0.5rem 1rem; 
+    font-weight: 600; 
     border: none;
-    border-radius: 0.5rem; /* rounded-lg */
+    border-radius: 0.5rem; 
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: #3182ce !important; /* bg-blue-500 */
+
 }
 
 .submit-button.active {
@@ -92,13 +96,12 @@
     background-color: #2563eb; /* hover:bg-blue-600 */
 }
 
-.submit-button.disabled {
-    background-color: #9ca3af; /* bg-gray-400 */
-    color: #ffffff; /* text-white */
-    cursor: not-allowed; /* cursor-not-allowed */
-}
-
 
 .pages{
     margin-top: 50px;
+}
+.Old-Price{
+    text-decoration: line-through;
+    color: red;
+    letter-spacing: 1px;
 }

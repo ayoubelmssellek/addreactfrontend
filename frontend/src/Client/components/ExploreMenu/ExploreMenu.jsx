@@ -1,15 +1,16 @@
 import React from 'react'
-import './ExploreMenu.css'
+import styles from'./ExploreMenu.module.css'
 import { menu_list } from '../../assets/assets'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const ExploreMenu = () => {
-  
+  const listQatigorie=useSelector(state=>state.admin.ListeCategory)
 
   return (
-    <div className='Explore-menu'>
+    <div className={styles['Explore-menu']}>
         <h1>القائمة</h1>
-        <div className="Explore-menu-list">
-        {menu_list.map((item, index) => (
+        <div className={styles["Explore-menu-list"]}>
+        {listQatigorie.map((item, index) => (
   <Link to={`/category/${item.menu_name}`} key={index}> 
     <div>
       <img src={item.menu_image} alt={item.menu_name} />

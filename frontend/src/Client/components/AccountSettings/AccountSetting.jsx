@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUser, FaLock, FaBell, FaInfoCircle, FaChevronDown, FaArrowRight } from 'react-icons/fa';
+import { FaUser, FaLock, FaBell, FaInfoCircle, FaChevronDown, FaArrowRight, FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import styles from './AccountSettings.module.css';
 
@@ -95,6 +95,14 @@ const Settings = () => {
       ),
     },
   ];
+  const handleLogout = () => {
+    const confirm=window.confirm('are you sur you want to logout')
+    if (confirm) {
+        localStorage.removeItem('loggedInUser');
+        navigate('/login'); 
+    }
+  
+  };
 
   return (
     <div className={styles.settingsContainer}>
@@ -129,6 +137,12 @@ const Settings = () => {
             {activeSection === section.id && <div className={styles.sectionBody}>{section.content}</div>}
           </div>
         ))}
+         <div className={styles.section}>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            <FaSignOutAlt className={styles.logoutIcon} />
+            تسجيل الخروج
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ const OverViewChart = () => {
       ],
       chart: {
         type: "bar",
-        height: "220px",
+        height: "420px",
         fontFamily: "Inter, sans-serif",
         toolbar: {
           show: false,
@@ -127,7 +127,7 @@ const OverViewChart = () => {
       <div className="header-of-chart">
         <div className="header-left">
           <div className="icon-container">
-            <FaDollarSign size={25} />
+            <FaDollarSign size={25} color="green" />
           </div>
           <div>
             <h5 className="title">1.4k</h5>

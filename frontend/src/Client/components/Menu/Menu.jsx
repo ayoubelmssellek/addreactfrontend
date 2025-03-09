@@ -1,110 +1,159 @@
-import React, { useState, useEffect } from "react";
-import "primeicons/primeicons.css";
-import { MdAddShoppingCart } from "react-icons/md";
-import '../FoodDesplay/Fooddesplay.css'
-import { assets, food_list } from "../../assets/assets";
+import React from "react";
+import { MdAddShoppingCart, MdRemove, MdAdd, MdVisibility, MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import styles from '../FoodDesplay/Fooddesplay.module.css';
+import { assets } from "../../assets/assets";
 import { useDispatch, useSelector } from "react-redux";
-import { addTo_Cart, DicreaseQuantity } from "../../actions/action";
+import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from "../../actions/action";
 import { Link } from "react-router-dom";
 
 export const MenuComponnent = () => {
   const CartItems = useSelector((state) => state.client.cartItems);
   const food_list = useSelector((state) => state.client.food_list);
-    
-  
-  const groupedFood = food_list.reduce((acc, item) => {
-     if(!acc[item.category]){
-      acc[item.category]=[]
-     }
-     acc[item.category].push(item)
-     return acc
-
-  },{})
-
-  const  groubedArray=Object.entries(groupedFood).map(([category,items])=>(
-    {
-      category,
-      items
-    }
-  ))
-
-  const isInCart = (id) => {
-    return CartItems.some((item) => item._id === id);
-  };
-
-
-
+  const FavoriteList = useSelector((state) => state.client.Favorite);
   const dispatch = useDispatch();
 
+  const groupedFood = food_list.reduce((acc, item) => {
+    if(!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
+  const groubedArray = Object.entries(groupedFood).map(([category, items]) => ({
+    category,
+    items
+  }));
+
+  const isInCart = (id) => CartItems.some((item) => item._id === id);
+  const isitClicked = (id) => FavoriteList?.some(item => item._id === id);
+
   const handelAddItem = (produit) => {
-    dispatch(addTo_Cart(produit));
-    console.log(produit);
-    
+    // if(produit.inStock)
+     dispatch(addTo_Cart(produit));
   };
 
-  const DicreaseProdectQauntity = (id, item) => {
-    dispatch(DicreaseQuantity(id, item));
-  };
+  const DicreaseProdectQauntity = (id) => dispatch(DicreaseQuantity(id));
+  const handelAddToFavorite = (product, id) => dispatch(addTo_Favorite(product, id));
 
-
-   
   return (
     <>
-    {
-      groubedArray.map(item=>
-        <div className="Food-desplay">
-      <hr className="Hr" />
-      <h1 className="QategoryName"> {item.category}</h1>
-        <div className="Food-desplay-list">
-          {item.items.map((produit) => (
-            <div key={produit._id} className="Cart" >
-              <Link to={`/product/${produit._id}`}>
-               <img src={produit.image} alt={produit.name}  loading="lazy"/>
-              </Link>
-            
-              <div className="Food_item_info">
-                <div className="Food_item_img_raiting">
-                
-                <p><Link to={`/product/${produit._id}`}>{produit.name} </Link></p>
-               
+      {groubedArray.map((group) => (
+        <div className={styles["Food-desplay"]} key={group.category}>
+          <h1 className={styles.QategoryName}>{group.category}</h1>
+          <div className={styles["Food-desplay-list"]}>
+            {group.items.map((produit) => (
+              <div key={produit._id} className={styles.Cart}>
+                {/* ${!produit.inStock ? styles.OutOfStockOverlay : ''} */}
+                <div className={`${styles.ImageContainer} `}>
+                  <img 
+                    src={produit.image} 
+                    alt={produit.name} 
+                    className={styles.ProductImage}
+                    loading="lazy" 
+                  />
+                  
+                  {/* {!produit.inStock && (
+                    <div className={styles.OutOfStock}>غير متوفر</div>
+                  )} */}
+                  
+                  <button
+                    className={`${styles.FavoriteButton} ${
+                      isitClicked(produit._id) ? styles.active : ''
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handelAddToFavorite(produit, produit._id);
+                    }}
+                    // disabled={!produit.inStock}
+                  >
+                    {isitClicked(produit._id) ? (
+                      <MdFavorite className={styles.favoriteIcon} size={24} />
+                    ) : (
+                      <MdFavoriteBorder className={styles.favoriteIcon} size={24} />
+                    )}
+                  </button>
                 </div>
-                {/* <p className="food_item_desc">{item.description}</p> */}
-                <div className="Price_and_button">
-                  <p className="Food_item_price"><bdi style={{marginRight:'7px'}}>درهم</bdi> {produit.price}.00</p>
-                  {!isInCart(produit._id) ? (
-                    <button
-                      className="Food_item_button"
-                      onClick={() => handelAddItem(produit)}
-                    >
-                   <MdAddShoppingCart size={30} />  أضف إلى السلة
-                    </button>
-                  ) : (
-                    <div className="Inc_or_dec_amount">
-                      <img loading='lazy'
-                        onClick={() => DicreaseProdectQauntity(produit._id, produit)}
-                        src={assets.remove_icon_red}
-                        alt="Remove"
-                      />
-                      <strong>
-                        {CartItems.find((cartitem) => cartitem._id === produit._id)
-                          ?.Quantity}
-                      </strong>
-                      <img loading='lazy'
-                        onClick={() => handelAddItem(produit)}
-                        src={assets.add_icon_green}
-                        alt="Add"
-                      />
+                
+                <div className={styles.ProductContent}>
+                  <div className={styles.ProductHeader}>
+                    <Link to={`/product/${produit._id}`} className={styles.ProductTitle}>
+                      {produit.name}
+                    </Link>
+                    <div className={styles.PriceContainer}>
+                      <span className={styles.ProductPrice}>
+                        <bdi>درهم</bdi> {produit.price}.00
+                      </span>
+                      {/* {produit.oldPrice && ( */}
+                        <span className={styles.OldPrice}>
+                         90.00
+                        </span>
+                      {/* )} */}
                     </div>
+                  </div>
+                  
+                  {produit.description && (
+                    <p className={styles.ProductDescription}>
+                      {produit.description}
+                    </p>
                   )}
+                  
+                  <div dir="ltr" className={styles.ProductFooter}>
+                    {produit.category && (
+                      <span className={styles.CategoryTag}>
+                        {produit.category}
+                      </span>
+                    )}
+                    
+                    <div dir="ltr" className={styles.ActionButtons}>
+                      <Link 
+                        to={`/product/${produit._id}`}
+                        className={`${styles.IconButton} ${styles.ViewButton}`}
+                      >
+                        <MdVisibility size={20} />
+                      </Link>
+                      {/* {!produit.inStock ? (
+                        <button
+                          className={`${styles.IconButton} ${styles.CartButton} ${styles.DisabledButton}`}
+                          disabled
+                        >
+                          <MdAddShoppingCart size={20} />
+                        </button>
+                      ) : */}
+                     { !isInCart(produit._id) ? (
+                        <button
+                          className={`${styles.IconButton} ${styles.CartButton}`}
+                          onClick={() => handelAddItem(produit)}
+                        >
+                          <MdAddShoppingCart size={20} />
+                        </button>
+                      ) : (
+                        <div className={styles.QuantityControls}>
+                          <button
+                            className={styles.QuantityButton}
+                            onClick={() => DicreaseProdectQauntity(produit._id)}
+                          >
+                            <MdRemove size={20} />
+                          </button>
+                          <span>
+                            {CartItems.find(item => item._id === produit._id)?.Quantity}
+                          </span>
+                          <button
+                            className={styles.QuantityButton}
+                            onClick={() => handelAddItem(produit)}
+                          >
+                            <MdAdd size={20} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-    </div>
-      )
-    }
+      ))}
     </>
   );
 };
-

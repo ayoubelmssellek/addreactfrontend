@@ -85,35 +85,43 @@ export const assets = {
 export const menu_list = [
     {
         menu_name: "Salad",
-        menu_image: menu_1
+        menu_image: menu_1,
+        statu:'avalaible'
     },
     {
         menu_name: "Rolls",
-        menu_image: menu_2
+        menu_image: menu_2,
+        statu:'avalaible'
     },
     {
         menu_name: "Deserts",
-        menu_image: menu_3
+        menu_image: menu_3,
+        statu:'avalaible'
     },
     {
         menu_name: "Sandwich",
-        menu_image: menu_4
+        menu_image: menu_4,
+        statu:'avalaible'
     },
     {
         menu_name: "Cake",
-        menu_image: menu_5
+        menu_image: menu_5,
+        statu:'avalaible'
     },
     {
         menu_name: "Pure Veg",
-        menu_image: menu_6
+        menu_image: menu_6,
+        statu:'avalaible'
     },
     {
         menu_name: "Pasta",
-        menu_image: menu_7
+        menu_image: menu_7,
+        statu:'avalaible'
     },
     {
         menu_name: "Noodles",
-        menu_image: menu_8
+        menu_image: menu_8,
+        statu:'avalaible'
     }]
 
     export const food_list = [
@@ -125,7 +133,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Salad",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         },
         {
             _id: 2,
@@ -135,7 +144,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Salad",
             stock:25,
-            date_add_product:'2025-02-02'
+            date_add_product:'2025-02-02',
+            statu:''
         }, {
             _id: 3,
             name: "Clover Salad",
@@ -144,7 +154,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Salad",
             stock:25,
-            date_add_product:'2024-11-23'
+            date_add_product:'2024-11-23',
+            statu:''
         }, {
             _id: 4,
             name: "Chicken Salad",
@@ -153,7 +164,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Salad",
             stock:25,
-            date_add_product:'2025-01-13'
+            date_add_product:'2025-01-13',
+            statu:''
         }, {
             _id: 5,
             name: "Lasagna Rolls",
@@ -162,7 +174,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Rolls",
             stock:25,
-            date_add_product:'2025-02-10'
+            date_add_product:'2025-02-10',
+            statu:''
         }, {
             _id: 6,
             name: "Peri Peri Rolls",
@@ -171,7 +184,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Rolls",
             stock:25,
-            date_add_product:'2025-01-29'
+            date_add_product:'2025-01-29',
+            statu:''
         }, {
             _id: 7,
             name: "Chicken Rolls",
@@ -180,7 +194,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Rolls",
             stock:25,
-            date_add_product:'2025-01-24'
+            date_add_product:'2025-01-24',
+            statu:''
         }, {
             _id: "8",
             name: "Veg Rolls",
@@ -189,7 +204,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Rolls",
             stock:25,
-            date_add_product:'2025-02-11'
+            date_add_product:'2025-02-11',
+            statu:''
         }, {
             _id: 9,
             name: "Ripple Ice Cream",
@@ -198,7 +214,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Deserts",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 10,
             name: "Fruit Ice Cream",
@@ -207,7 +224,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Deserts",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 11,
             name: "Jar Ice Cream",
@@ -216,7 +234,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Deserts",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 12,
             name: "Vanilla Ice Cream",
@@ -225,7 +244,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Deserts",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         },
         {
             _id: 13,
@@ -235,7 +255,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Sandwich",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         },
         {
             _id: 14,
@@ -245,7 +266,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Sandwich",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 15,
             name: "Grilled Sandwich",
@@ -254,7 +276,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Sandwich",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 16,
             name: "Bread Sandwich",
@@ -263,7 +286,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Sandwich",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: "17",
             name: "Cup Cake",
@@ -272,7 +296,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Cake",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 18,
             name: "Vegan Cake",
@@ -281,7 +306,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Cake",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 19,
             name: "Butterscotch Cake",
@@ -290,7 +316,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Cake",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 20,
             name: "Sliced Cake",
@@ -299,7 +326,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Cake",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: "21",
             name: "Garlic Mushroom ",
@@ -308,7 +336,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pure Veg",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 22,
             name: "Fried Cauliflower",
@@ -317,7 +346,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pure Veg",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 23,
             name: "Mix Veg Pulao",
@@ -326,7 +356,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pure Veg",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 24,
             name: "Rice Zucchini",
@@ -335,7 +366,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pure Veg",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         },
         {
             _id: 25,
@@ -345,7 +377,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pasta",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         },
         {
             _id: 26,
@@ -355,7 +388,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pasta",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 27,
             name: "Creamy Pasta",
@@ -364,7 +398,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pasta",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 28,
             name: "Chicken Pasta",
@@ -373,7 +408,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Pasta",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 29,
             name: "Buttter Noodles",
@@ -382,7 +418,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Noodles",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 30,
             name: "Veg Noodles",
@@ -391,7 +428,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Noodles",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 31,
             name: "Somen Noodles",
@@ -400,7 +438,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Noodles",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }, {
             _id: 32,
             name: "Cooked Noodles",
@@ -409,7 +448,8 @@ export const menu_list = [
             description: "Food provides essential nutrients for overall health and well-being",
             category: "Noodles",
             stock:25,
-            date_add_product:'2025-01-23'
+            date_add_product:'2025-01-23',
+            statu:''
         }
     ];
 
@@ -421,6 +461,7 @@ export const menu_list = [
             Name_Employee:'Hassan',
             Role_employee:'Manager',
             Salary_Employee:4000,
+            Number_of_Ropot:3,
             Total_Avence_Employee:250
         },
         {
@@ -428,6 +469,7 @@ export const menu_list = [
             Name_Employee:'Mustapha',
             Role_employee:'Manager',
             Salary_Employee:3500,
+            Number_of_Ropot:1,
             Total_Avence_Employee:200
         },
         {
@@ -435,6 +477,7 @@ export const menu_list = [
             Name_Employee:'Ayoub',
             Role_employee:'Livreur',
             Salary_Employee:4500,
+            Number_of_Ropot:4,
             Total_Avence_Employee:450
         },
         ]

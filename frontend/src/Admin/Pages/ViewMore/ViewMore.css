@@ -1,10 +1,9 @@
 
 .View-More-About-Product{
-    background-color: #fff;
     width: 100%;
 }
 .View-More-About-Product .Product-info{
-    width: 100%;
+    width: 700px;
     height: auto;
     display: flex;
     text-align: center;
@@ -16,7 +15,7 @@
 }
 .View-More-About-Product .Product-info img{
     border-radius: 5px;
-    width: 25%;
+    width: 35%;
 
 }
 .View-More-About-Product .Product-info .Product-detailes{
@@ -29,7 +28,7 @@
     
 }
 .product-and-back-button{
-    width: 70%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -52,19 +51,32 @@
 }
 .product-and-back-button .back-button a,button{
     padding: 5px;
-    color: #000;
 }
 
 .product-and-back-button .Product-detailes label{
-    color: rgba(98, 93, 93, 0.91);
+    font-size: 1em;
+    font-weight: 600;
+    color:#007bff;
 }
 .product-and-back-button .Product-detailes span{
     font-size: 1em;
-    color: #000;
+   
 }
 .Update--Products-page{
     margin-left: 10px;
 }
 .Back-to-Products-page {
     margin-left: 10px;
+}
+.Delete-product button{
+    background-color: transparent;
+}
+.action-and-cancel-View-btn .cancel-View-btn{
+    background-color: rgb(218, 68, 68) !important;
+    border-radius: 5px;
+    color: #fff;
+}
+.action-and-cancel-View-btn{
+   position: absolute;
+   right: 20px;
 }

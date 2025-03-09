@@ -22,7 +22,7 @@ const Shopingcartpage = () => {
   return (
     <div>
       
-       { !IsMobile ? <Navbar/>  : '' }      
+       <Navbar/>      
         <ShopingCart/>
      {/* <Footer/>  */}
     </div>

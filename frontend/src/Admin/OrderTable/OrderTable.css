@@ -1,58 +1,73 @@
-/* Base Styles */
-.order-table-container {
-    width: 100%;
-    overflow-x: auto; /* Enable horizontal scrolling for small screens */
-  }
-  
-  .order-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem; /* text-sm */
-    text-align: left; /* text-left */
-    color: #6b7280; /* text-gray-500 */
-  }
-  
-  /* Table Header */
-  .table-header {
-    background-color: #f9fafb; /* bg-gray-50 */
-    color: #374151; /* text-gray-700 */
-    text-transform: uppercase; /* uppercase */
-    font-size: 0.75rem; /* text-xs */
-  }
-  
-  .table-heading {
-    padding: 0.75rem 1.5rem; /* px-6 py-3 */
-    font-weight: 600; /* font-semibold */
-  }
-  
-  /* Table Rows */
-  .table-row {
-    background-color: #ffffff; /* bg-white */
-    border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
-  }
 
   
-  .table-data {
-    padding: 1rem 1.5rem; /* px-6 py-4 */
-  }
-  
-  /* Dark Mode (Optional) */
-  @media (prefers-color-scheme: dark) {
-    .order-table {
-      color: #9ca3af; /* dark:text-gray-400 */
-    }
-  
-    .table-header {
-      background-color: #374151; /* dark:bg-gray-700 */
-      color: #f3f4f6; /* dark:text-gray-400 */
-    }
-  
-    .table-row {
-      background-color: #1f2937; /* dark:bg-gray-800 */
-      border-bottom-color: #374151; /* dark:border-gray-700 */
-    }
-  
-    .table-row:nth-child(odd) {
-      background-color: #374151; /* Alternate row color in dark mode */
-    }
-  }
+
+.table-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.table-container2 {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px 24px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.table th {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.completed {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.status.processing{
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.status.cancelled {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.status.confirmed {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.status.special-request {
+  background-color: #ede9fe;
+  color: #7c3aed;
+}

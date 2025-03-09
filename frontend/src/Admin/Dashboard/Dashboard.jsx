@@ -6,6 +6,8 @@ import Badge from "../Badges/Badges";
 import OrderTable from "../OrderTable/OrderTable";
 import Navbar from "../Navbar/Navbar";
 import OverViewChart from "../OverviewChart/OverViewChart";
+import MostOrderProduct from "../MostOrderProduct/MostOrderProduct";
+import MostSalesProducts from "../MostSalesProducts/MostSalesProducts";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -32,17 +34,23 @@ const Dashboard = () => {
           <div className="card">
             <Badge />
           </div>
-          <div className="orders-table">
-            <OrderTable />
-          </div>
         </div>
 
         <div className="second-section">
+        <div className="orders-table">
+            <OrderTable />
+          </div>
+          <div className="Most-Sales-Product">
+            <MostSalesProducts/>
+          </div>
+
+        </div>
+        <div className="therd-section">
+        <div className="Most-Ordered-Product">
+            <MostOrderProduct/>
+          </div>
           <div className="orders-and-sales-chart">
             <OverViewChart />
-          </div>
-          <div className="card">
-            {/* Additional content can go here */}
           </div>
         </div>
       </div>

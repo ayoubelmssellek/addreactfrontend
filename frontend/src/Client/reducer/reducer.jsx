@@ -18,7 +18,7 @@ const initState = {
     Users:[
             { id: 1, username: 'mustapha', Number_Phon: '0640606282', password: '1234', role: 'Directeur' },
             { id: 2, username: 'Mohssine', Number_Phon: '0644666688', password: '0000', role: 'Manager' },
-            { id: 3, username: 'AYOUB', Number_Phon: '0673897450', password: '4444', role: 'client' },
+            { id: 3, username: 'ayoub', Number_Phon: '0673897450', password: '4444', role: 'client' },
           ]    
   };
   

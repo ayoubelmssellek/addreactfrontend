@@ -1,11 +1,14 @@
 /* Overview Chart Container */
 .overview-chart-container {
-    max-width: 24rem;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+  width: 100%;
+  display: flex
+;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
   }
   
   /* Header */
@@ -21,13 +24,14 @@
   .header-left {
     display: flex;
     align-items: center;
+    flex-direction: row  !important;
   }
   
   .icon-container {
     width: 3rem;
     height: 3rem;
     border-radius: 0.5rem;
-    background-color: #f3f4f6;
+    background-color: #e5e7ea !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,7 +41,6 @@
   .title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #111827;
     margin: 0;
   }
   
@@ -79,7 +82,6 @@
   .filter-button {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #6b7280;
     background: none;
     border: none;
     cursor: pointer;
@@ -88,7 +90,6 @@
   }
   
   .filter-button:hover {
-    color: #111827;
   }
   
   .filter-icon {
@@ -119,3 +120,9 @@
     height: 0.625rem;
     margin-left: 0.5rem;
   }
+#column-chart .apexcharts-xaxis-label tspan,title{
+  color: #2563eb !important;
+}
+/* .apexcharts-canvas{
+  color: #000;
+} */

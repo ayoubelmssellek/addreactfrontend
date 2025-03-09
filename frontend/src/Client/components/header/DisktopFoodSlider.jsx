@@ -9,11 +9,11 @@ const DesktopFoodSlider = () => {
   const timeoutRef = useRef(null);
   const disbatch=useDispatch()
   const navigate=useNavigate()
-  const listimg = useSelector((state) => state.client.food_list);
+    const food_list = useSelector((state) => state.admin.produits);
         
-  const slides = listimg
+  const slides = food_list
     // .flatMap(order => order.items)
-    .slice(-10)
+    .slice(0, 8)
     .map(item => ({
       _id:item._id,
       image: item.image,
@@ -65,6 +65,7 @@ const DesktopFoodSlider = () => {
               <div 
                 className="slide" 
                 key={index}
+              
               >
               <div className='slide-info'>
               <span className="category-badge">{slide.category}</span>

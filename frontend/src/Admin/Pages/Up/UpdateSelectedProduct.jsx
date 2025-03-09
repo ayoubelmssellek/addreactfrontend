@@ -1,57 +1,28 @@
-import { useSelector,useDispatch } from "react-redux";
-import { useParams,useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import Sidebar from "../../Sidebar/Sidebar";
-import Navbar from "../../Navbar/Navbar";
-import {Edit } from "../../Redux/Action";
-const UpdateSelectedProduct = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const products = useSelector((state) => state.admin.produits); // Get products from Redux store
-    const { role,Code } = useParams();
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Edit } from '../../Redux/Action';
+import PropTypes from 'prop-types';
+import './UpdateSelectedProduct.css';
+
+const UpdateSelectedProduct = ({ Code, product, onClose }) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-  
-    const [product, setProduct] = useState(null); // Local state for product data
+    const Category = useSelector((state) => state.admin.ListeCategory);
+    const products = useSelector((state) => state.admin.produits);
 
+     const [error, setError] = useState('');
+    
 
-    const [productName, setProductName] = useState('');
-    const [productImage, setProductImage] = useState('');
-    const [productCategory, setProductCategory] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productQuantity, setProductQuantity] = useState('');
-    const [error, setError] = useState('');
-  
+    // State to manage form fields
+    const [formData, setFormData] = useState({
+        name: '',
+        category: '',
+        price: '',
+        stock: '',
+        image: '',
+        statu: ''
+    });
 
-       // Find the product to update from the Redux store
-    useEffect(() => {
-    const foundProduct = products.find((prod) => Number(prod._id )=== Number(Code));
-    if (foundProduct) {
-      setProduct(foundProduct);
-      setProductName(foundProduct.name);
-      setProductImage(foundProduct.image);
-      setProductCategory(foundProduct.category);
-      setProductPrice(foundProduct.price);
-      setProductQuantity(foundProduct.stock);
-    } else {
-        navigate(`/admin/Dashboard/${role}/Products`); // If no product found, redirect
-    }
-   },[Code, products, navigate,role]);
-    // Fetching categories from existing products
-    const categories = [...new Set(products.map((product) => product.category))];
-  
-    const isFormValid = productName && productImage && productCategory && productPrice && productQuantity;
-  
-    // Handle image file change
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setProductImage(imageUrl);
-        }
-    };
-  
-    // Validate price and quantity
+      // Validate price and quantity
     const validatePriceAndQuantity = (price, stock) => {
         if (isNaN(price) || isNaN(stock)) {
             return 'Price and Quantity must be valid numbers';
@@ -61,125 +32,180 @@ const UpdateSelectedProduct = () => {
         }
         return '';
     };
-  
-  
-      // Function to update the state when Sidebar changes
-        const handleSidebarStateChange = (newState) => {
-          setIsOpen(newState);
-      };
-  
-  
+    // Populate form fields when the product prop changes
+    useEffect(() => {
+        if (product) {
+            setFormData({
+                name: product.name,
+                category: product.category,
+                price: product.price,
+                stock: product.stock,
+                image: product.image,
+                statu: product.statu || 'available' // Default to 'available' if statu is not provided
+            });
+        }
+    }, [product]);
+
+    const isFormValid = formData.name && formData.image && formData.category && formData.price && formData.stock && formData.statu;
+
+    // Handle input changes
+    const handleInputChange = (e) => {
+        
+
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    // Handle file input changes
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData({
+                    ...formData,
+                    image: reader.result
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-  
         if (!isFormValid) {
             setError('Please fill all fields');
             return;
         }
-  
-        const priceQuantityError = validatePriceAndQuantity(productPrice, productQuantity);
+    
+        const priceQuantityError = validatePriceAndQuantity(formData.price, formData.stock);
         if (priceQuantityError) {
             setError(priceQuantityError);
             return;
         }
-  
-        const newProduct = {
-            _id: products.length > 0 ? products[products.length - 1]._id + 1 : 1, // Generate new ID
-            name: productName,
-            category: productCategory,
-            price: parseFloat(productPrice), // Ensure price is a number
-            stock: parseInt(productQuantity), // Ensure quantity is an integer
-            image: productImage,
+
+        // Create the updated product object
+        const updatedProduct = {
+            ...product, // Keep the existing product data
+            ...formData // Overwrite with the updated form data
         };
-         dispatch(Edit(Code,newProduct));
-         navigate(`/admin/Dashboard/${role}/Products`);
-    }  
-    if (!product) {
-        return <div>Loading...</div>; // Show loading state until product is found
-      }
+        console.log('up',updatedProduct);
+        
 
-  return (
-           <div className="content">
-               <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
-               <div className={`all-badges container ${isOpen ? 'push-main-content' : 'ml-20'}`}>
-                   <Navbar  pagePath='Update Product'/>
-                   <div className="pages">
-                   <form className="add-product-form" onSubmit={handleSubmit}>
-               <p className="form-title">Update Product</p>
-               {error && <span className="error-message">{error}</span>}
-   
-               <div className="form-group">
-                   <input
-                       type="text"
-                       placeholder="Enter Product Name"
-                       value={productName}
-                       onChange={(e) => setProductName(e.target.value)}
-                   />
-               </div>
-   
-               {/* File Upload Section */}
-               <div className="form-group">
-                   <input
-                       type="file"
-                       accept="image/*"
-                       onChange={handleImageChange}
-                       className="file-input"
-                       id="file-upload"
-                   />
-                   <label htmlFor="file-upload" className="file-upload-label">
-                       {productImage ? (
-                           <img src={productImage} alt="Preview" className="image-preview" />
-                       ) : (
-                           <span>Click to upload an image</span>
-                       )}
-                   </label>
-               </div>
-   
-               <div className="form-group">
-                   <select
-                       value={productCategory}
-                       onChange={(e) => setProductCategory(e.target.value)}
-                   >
-                       <option value="">Choose your Category</option>
-                       {categories.map((category, index) => (
-                           <option key={index} value={category}>
-                               {category}
-                           </option>
-                       ))}
-                   </select>
-               </div>
-   
-               <div className="form-group">
-                   <input
-                       type="number"
-                       placeholder="Enter Price"
-                       value={productPrice}
-                       onChange={(e) => setProductPrice(e.target.value)}
-                   />
-               </div>
-   
-               <div className="form-group">
-                   <input
-                       type="number"
-                       placeholder="Enter Quantity"
-                       value={productQuantity}
-                       onChange={(e) => setProductQuantity(e.target.value)}
-                   />
-               </div>
-   
-               <button
-                   type="submit"
-                   className={`submit-button ${isFormValid ? 'active' : 'disabled'}`}
-                   disabled={!isFormValid}
-               >
-                   Update
-               </button>
-           </form>
-                   </div>
-               </div>
-           </div>
-  )
-}
+        // Dispatch the update action
+        dispatch(Edit(Code, updatedProduct));
 
-export default UpdateSelectedProduct
+        // Close the modal
+        onClose();
+    };
+
+    return (
+        <div className="update-product-form">
+            <form className="form" onSubmit={handleSubmit}>
+                <p className="title">Update Product</p>
+                {error && <span className="error-message">{error}</span>}
+
+                <div className="flex">
+                    <label>
+                        <input
+                            className="input"
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            placeholder="Name"
+                            
+                        />
+                    </label>
+                    <label>
+                        <input
+                            className="input"
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleInputChange}
+                            placeholder="Price"
+                            
+                        />
+                    </label>
+                </div>
+                <div className="flex">
+                    <label>
+                        <input
+                            className="input"
+                            type="number"
+                            name="stock"
+                            value={formData.stock}
+                            onChange={handleInputChange}
+                            placeholder="Stock"
+                            
+                        />
+                    </label>
+                    <label>
+                        <select
+                          disabled= {formData.statu=='out_of_stock'}
+                            className="input"
+                            name="statu"
+                            value={formData.statu}
+                            onChange={handleInputChange}
+                            
+                        >
+                            <option value="available">Available</option>
+                            <option value="out_of_stock">Out of Stock</option>
+                        </select>
+                    </label>
+                </div>
+                <label>
+                    <select
+                        className="input"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                        
+                    >
+                        {Category.map((cat, index) => (
+                            <option key={index} value={cat.menu_name}>
+                                {cat.menu_name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    {/* File Upload Section */}
+                    <div className="form-group">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="file-input"
+                            id="file-upload"
+                        />
+                        <label htmlFor="file-upload" className="file-upload-label">
+                            {formData.image ? (
+                                <img src={formData.image} alt="Preview" className="image-update-preview" />
+                            ) : (
+                                <span>Click to upload an image</span>
+                            )}
+                        </label>
+                    </div>
+                </label>
+               <div className='action-and-cancel-btn'>
+               <button className="update-product-btn" type="submit">Update</button>
+               <button className="cancel-product-btn" type="submit" onClick={onClose}>cancel</button>
+               </div>
+            </form>
+        </div>
+    );
+};
+
+export default UpdateSelectedProduct;
+
+UpdateSelectedProduct.propTypes = {
+    product: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    Code: PropTypes.number.isRequired,
+};

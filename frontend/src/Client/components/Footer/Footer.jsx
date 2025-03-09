@@ -1,6 +1,7 @@
 import './Footer.css'
 import { FaInstagram } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
   <footer>
@@ -12,7 +13,7 @@ const Footer = () => {
 
   <div className="links">
     <a href="#">About Us</a>
-    <a href="#">Contact Us</a>
+    <Link to={'/ContactUs'}>Contact Us</Link>
   </div>
 
   <hr />

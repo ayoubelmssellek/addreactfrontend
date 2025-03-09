@@ -1,0 +1,70 @@
+/* Circular icon container */
+.Sales-icons {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  padding: 10px;
+  margin: 0 auto; /* Centers the circle itself in the card */
+}
+
+
+
+/* Grid container */
+.Sales-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns by default */
+  gap: 16px; /* Spacing between grid items */
+  margin-top: 15px;
+}
+
+/* Medium screens and above (3 columns) */
+@media (min-width: 768px) {
+  .Sales-grid {
+    grid-template-columns: repeat(6, 1fr); /* 6 columns for medium screens and above */
+  }
+}
+
+/* Grid items (divs containing images) */
+/* .Sales-grid div {
+  width: 180px; 
+} */
+
+.Sales-label {
+  font-size: 20px;
+  text-align: center; /* Center the label text */
+  font-weight: 500;
+
+}
+
+.Sales-value {
+  text-align: center; /* Center the value text */
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+
+
+
+
+
+
+.Sales-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* .Sales-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */

@@ -1,127 +1,148 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {Truck , Utensils, Table,Eye  } from 'lucide-react';
+import { useSelector } from 'react-redux';
 import Sidebar from '../Sidebar/Sidebar';
-import { FaTrash, FaEye, FaEdit } from 'react-icons/fa';
 import Navbar from '../Navbar/Navbar';
+import './ListeOrders.css';
+import { Link, useParams } from 'react-router-dom';
+
+
 const ListeOrders = () => {
-        const listorders=useSelector((state)=>state.client.orders)
-        const [isOpen, setIsOpen] = useState(false);
-        const { role } = useParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState('all');
+  const listorders = useSelector((state) => state.admin.orders || []);
+  const {role}=useParams()
+  console.log(listorders);
+ 
 
+  const orderTypes = ['dine-in', 'delivery'];
+  
+  const statusColors = {
+    pending: 'status-pending',
+    'in-progress': 'status-in-progress',
+    completed: 'status-completed',
+    cancelled: 'status-cancelled',
+  };
 
-       
-        const handleSidebarStateChange = (newState) => {
-            setIsOpen(newState);
-        };
-    
-       
+  // Calculate total amount for each order
+  const ordersWithTotal = listorders.map((order) => ({
+    ...order,
+    totalAmount: order.items.reduce((total, item) => total + item.price * item.Quantity, 0),
+  }));
+
+  // Filter orders based on selected type
+  const filteredOrders =
+    selectedType === 'all'
+      ? ordersWithTotal
+      : ordersWithTotal.filter((order) => order.type === selectedType);
+
+  // Handle sidebar state change
+  const handleSidebarStateChange = (newState) => {
+    setIsOpen(newState);
+  };
+
   return (
     <div className="content">
-    <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
-    <div className={`all-badges container ${isOpen ? 'push-main-content' : 'ml-20'}`}>
-        <Navbar  pagePath='Liste Orders'/>
+      <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
+      <div className={`all-badges ${isOpen ? 'push-main-content' : 'ml-20'}`}>
+        <Navbar pagePath="Orders Management" />
         <div className="pages">
-            {listorders.length !== 0 ? (
-                <div className="products-container">
-                  <div className="filters-container">
-                    {/* Filter by Name */}
-                    {/* <div className="filter-input">
-                        <input
-                            type="text"
-                            placeholder=" "
-                            value={searchByName}
-                            onChange={(e) => setSearchByName(e.target.value)}
-                        />
-                        <label>Filter by Name</label>
-                    </div> */}
-
-                    {/* Filter by Category */}
-                    {/* <div className="filter-input">
-                        <input
-                            type="text"
-                            placeholder=" "
-                            value={searchByCategory}
-                            onChange={(e) => setSearchByCategory(e.target.value)}
-                        />
-                        <label>Filter by Category</label>
-                    </div> */}
-
-                    {/* Sort by Date (New/Old) */}
-                    {/* <div className="filter-select">
-                        <select
-                            value={sortOrder}
-                            onChange={(e) => setSortOrder(e.target.value)}
-                        >
-                            <option aria-readonly>Sorted by date</option>
-                            <option value="new">New to Old</option>
-                            <option value="old">Old to New</option>
-                        </select>
-                    </div> */}
-
-                    {/* Clear Filters Button */}
-                    {/* <button
-                        onClick={clearFilters}
-                        className="clear-button"
-                    >
-                        Clear
-                    </button> */}
-                  </div>
-                    <div className="table-container">
-                        <table className="products-table">
-                            <thead>
-                                <tr>
-                                    <th>Client Name</th>
-                                    <th>Number Phone</th>
-                                    <th>Date order</th>
-                                    <th>Product Name</th>
-                                    <th>Total Price</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listorders.map((item, idx) => (
-                                    <tr key={idx}>
-                                        <td>{item.name}</td>
-                                        <td>{item.phonenumber}</td>
-                                        <td>{item.price}</td>
-                                        <td>
-                                            {item.items.length>1? `${item.items.length} items`:`${item.items.length} item` } 
-                                        </td>
-                                       <td>
-                                       
-                                       </td>
-                                        <td>
-                                            <div className="dropdown">
-                                                <button className="dropdown-button">...</button>
-                                                <div className="dropdown-content">
-                                                    <Link>
-                                                        <FaTrash size={20} color="#F44336" />
-                                                    </Link>
-                                                    <Link to={`/admin/Dashboard/${role}/UpdateSelectedProduct/${item._id}`}>
-                                                        <FaEdit size={20} color="#4CAF50" />
-                                                    </Link>
-                                                    <Link to={`/admin/Dashboard/${role}/ViewMore/${item._id}`}>
-                                                        <FaEye size={20} color="#2196F3" />
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+          <div className="orders-page">
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-icon bg-blue">
+                  <Utensils className="icon" />
                 </div>
-            ) : (
-                <h3 className="no-products">No Orders available</h3>
-            )}
-        </div>
-    </div>
-</div>
-  )
-}
+                <div>
+                  <p className="stat-label">Total Orders</p>
+                  <p className="stat-value">
+                    {ordersWithTotal.length}
+                  </p>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon bg-green">
+                  <Table className="icon" />
+                </div>
+                <div>
+                  <p className="stat-label">pickup Orders</p>
+                  <p className="stat-value">
+                    {ordersWithTotal.filter((o) => o.deliveryType === 'pickup').length}
+                  </p>
+                </div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-icon bg-purple">
+                  <Truck className="icon" />
+                </div>
+                <div>
+                  <p className="stat-label">Delivery Orders</p>
+                  <p className="stat-value">
+                    {ordersWithTotal.filter((o) => o.deliveryType !== 'pickup').length}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-export default ListeOrders
+            <div className="filter-buttons">
+              <button
+                className={`filter-button ${selectedType === 'all' ? 'active' : ''}`}
+                onClick={() => setSelectedType('all')}
+              >
+                All Orders
+              </button>
+              {orderTypes.map((type) => (
+                <button
+                  key={type}
+                  className={`filter-button ${selectedType === type ? 'active' : ''}`}
+                  onClick={() => setSelectedType(type)}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+
+            <div className="orders-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredOrders.map((order) => (
+                    <tr key={order.id}>
+                      <td>
+                        <span className="order-id">#{order.id}</span>
+                      </td>
+                      <td>{order.name}</td>
+                      <td>{order.phonenumber}</td>
+                      <td>
+                         13/03/2025 17:23
+                      </td>
+                      <td>
+                        <span className={`status ${statusColors['pending']}`}>Pending</span>
+                      </td>
+                      <td> 
+                        <Link to={`/admin/Dashboard/${role}/ViewOrderDetails/${order.id}`}>
+                            <Eye color='#3b82f6'/>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ListeOrders;

@@ -4,10 +4,12 @@ import { Navbar } from '../../components/navbar/Navbar'
 import ExploreMenu from '../../components/ExploreMenu/ExploreMenu'
 import Footer from '../../components/Footer/Footer'
  import { MenuComponnent } from '../../components/Menu/Menu'
+import {SearchOverlay }from '../../components/SearchEngines/SearchEngines'
 export const Menu = () => {
   return (
-    <div>
+    <div style={{marginTop:'50px'}}>
       <Navbar/>
+      <SearchOverlay/>
       <ExploreMenu/>
       <MenuComponnent/>
       <Footer/>

@@ -1,86 +1,103 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom'
-import './ProductPageDiskTopVersion.css'
-import { BsBagFill } from "react-icons/bs";
-import { MdArrowBackIos, MdFavoriteBorder } from "react-icons/md";
-import { assets } from '../../assets/assets';
-import { MdAddShoppingCart } from "react-icons/md";
+import { useParams } from 'react-router-dom';
+import { MdAddShoppingCart, MdRemove, MdAdd, MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import styles from './ProductPageDiskTopVersion.module.css';
 import { addTo_Cart, addTo_Favorite, DicreaseQuantity } from '../../actions/action';
 
 const ProductPageDiskTopVersion = () => {
-    const {id}=useParams()
-    const dispatch=useDispatch()
-    const food_list = useSelector((state) => state.client.food_list);
-    const CartItems = useSelector((state) => state.client.cartItems);
-     const FavoriteList = useSelector((state) => state.client.Favorite);
-    const FoundedProduct=food_list.find(item=>item._id==id) 
-    const IsInCart = (id) => {
-        return CartItems.some((item) => item._id === id);
-      };
-    
-  const handelAddItem = (produit) => {
-    dispatch(addTo_Cart(produit));
-  };
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const {  cartItems, Favorite } = useSelector((state) => state.client);
+  const produits= useSelector((state) => state.admin.produits)
+  console.log(produits);
+  
+  const product = produits.find(item => item._id == id);
+  const inCart = cartItems.some(item => item._id == id);
+  const isFavorite = Favorite.some(item => item._id == id);
 
-  const DicreaseProdectQauntity = (id, item) => {
-    dispatch(DicreaseQuantity(id, item));
-  };  
-    const handelAddToFavorite = (product,id) => {
-      dispatch(addTo_Favorite(product,id))
-    };  
-  const isitClicked=(id)=>{
-    return FavoriteList?.some(item=>item._id==id)
-} 
+  if (!product) {
+    return (
+      <div className={styles.errorContainer}>
+        <h2 className={styles.errorTitle}>Product Not Found</h2>
+        <p>The requested product does not exist.</p>
+      </div>
+    );
+  }
 
   return (
-     <div className='DISKProductContent' >
-        <div className='DISKHeaderContent'>
-        
-        <div className='DISKimag'>
-            <img src={FoundedProduct.image} alt="" loading='lazy' />
-        </div>
-        </div>
-       <div className='DISKmainContent'>
-       <div className='DISKproductInfo'>
-           <h1>{FoundedProduct.name}</h1>
-           <h4>{FoundedProduct.category}</h4>
-           <p>{FoundedProduct.description}</p>
-        </div>
-        <div className='DISKpriceandbutton'>
-            <h1><bdi> درهم</bdi> {FoundedProduct.price}</h1>
-            <i className={isitClicked(FoundedProduct._id) ?'active' : 'favoriteIcon'} onClick={()=>handelAddToFavorite(FoundedProduct,FoundedProduct._id)}> 
-            <MdFavoriteBorder  size={'40px'} />
-             </i>
-              {
-                !IsInCart(FoundedProduct._id) ?
-                    (<button onClick={() => handelAddItem(FoundedProduct)}><MdAddShoppingCart size={30} />  أضف إلى السلة</button>
-                    )
-                    :(
-                        <div className="DISKInc_or_dec_amount">
-                      <img loading='lazy'
-                         onClick={() => DicreaseProdectQauntity(FoundedProduct._id, FoundedProduct)}
-                         src={assets.remove_icon_red}
-                        alt="Remove"
-                      />
-                      <strong>
-                        {CartItems.find((cartitem) => cartitem._id === FoundedProduct._id)
-                          ?.Quantity}
-                      </strong>
-                      <img loading='lazy'
-                       onClick={() => handelAddItem(FoundedProduct)}
-                        src={assets.add_icon_green}
-                        alt="Add"
-                      />
-                    </div>                    )
-                 }
-        </div>
-       </div>
+    <div className={styles.container}>
+      {/* Product Image Section */}
+      <div className={styles.imageContainer}>
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          className={styles.productImage} 
+          loading="lazy" 
+        />
+      </div>
 
-        
-      
+      {/* Product Info Section */}
+      <div className={styles.infoSection}>
+        {/* Favorite Button - Top Right */}
+        <button
+          className={`${styles.favoriteButton} ${isFavorite ? styles.active : ''}`}
+          onClick={() => dispatch(addTo_Favorite(product, product._id))}
+        >
+          {isFavorite ? (
+            <MdFavorite size={24} />
+          ) : (
+            <MdFavoriteBorder size={24} />
+          )}
+        </button>
+
+        <h1 className={styles.productTitle}>{product.name}</h1>
+        <span className={styles.productCategory}>{product.category}</span>
+        <p className={styles.productDescription}>{product.description}</p>
+
+        <div className={styles.priceSection}>
+          <div className={styles.priceContainer}>
+             {/* {produit.oldPrice && ( */}
+             <span className={styles.OldPrice}>
+                12.00
+              </span>
+          {/* )} */}
+            <span className={styles.price}>
+              {product.price} درهم
+            </span>
+          </div>
+
+          {inCart ? (
+            <div className={styles.quantityControls}>
+              <button
+                className={styles.quantityButton}
+                onClick={() => dispatch(DicreaseQuantity(product._id))}
+              >
+                <MdRemove size={20} />
+              </button>
+              <span className={styles.quantity}>
+                {cartItems.find(item => item._id === product._id)?.Quantity}
+              </span>
+              <button
+                className={styles.quantityButton}
+                onClick={() => dispatch(addTo_Cart(product))}
+              >
+                <MdAdd size={20} />
+              </button>
+            </div>
+          ) : (
+            <button
+              className={styles.cartButton}
+              onClick={() => dispatch(addTo_Cart(product))}
+            >
+              <MdAddShoppingCart size={20} />
+              أضف إلى السلة
+            </button>
+          )}
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductPageDiskTopVersion
+export default ProductPageDiskTopVersion;

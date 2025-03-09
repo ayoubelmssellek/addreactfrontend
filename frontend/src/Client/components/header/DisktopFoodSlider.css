@@ -10,7 +10,7 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  background: url('1.jpg') no-repeat center center/cover;
+  background: url('Orange Modern Culinary Youtube Thumbnail.png') no-repeat center center/cover;
 }
 
 
@@ -38,31 +38,38 @@
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-.slide .slide-info{
+.slide .slide-info {
   position: absolute;
-  right: 0%;
-  bottom: 30%;
+  left: 10%; 
+  bottom: 20%;
   z-index: 100;
+  padding: 5rem; 
+  width: 50%;
 }
 /* Slide Content */
 .slide-content {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 50%;
-  left: 10%;
+  top: 43%;
+  right: 15%; 
   transform: translateY(-50%);
-  width: 550px;
-  height: 350px;
+  width: 440px;
+  height: 440px;
+  border-radius:50% ;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
   z-index: 2;
   color: white;
+  background-color: #ff8300;
 }
 .slide-content .slide-image{
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius:50% ;
+  
+
 
 }
 .category-badge {
@@ -78,8 +85,10 @@
 }
 
 .slide-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
+  font-family: "Lobster", cursive;
+
+  /* font-family: 'Poppins', sans-serif; */
+  font-size: 3.5rem;
   margin: 0 0 1rem;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -136,6 +145,11 @@
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
   z-index: 3;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .control:hover {

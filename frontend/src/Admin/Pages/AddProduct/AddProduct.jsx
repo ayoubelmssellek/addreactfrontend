@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Add } from '../../Redux/Action';
-import { useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../../Sidebar/Sidebar';
-import Navbar from '../../Navbar/Navbar';
+import PropTypes from 'prop-types';
+
 import './AddProduct.css';
 
-const AddProduct = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const products = useSelector((state) => state.admin.produits); // Get products from Redux store
-  const { role } = useParams();
+const AddProduct = ({onClose}) => {
+  const products = useSelector((state) => state.admin.produits); 
+  const Category = localStorage.getItem('ListeCategories')?
+  JSON.parse(localStorage.getItem('ListeCategories')):[];
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [productName, setProductName] = useState('');
   const [productImage, setProductImage] = useState('');
@@ -21,7 +19,7 @@ const AddProduct = () => {
   const [error, setError] = useState('');
 
   // Fetching categories from existing products
-  const categories = [...new Set(products.map((product) => product.category))];
+  const categories = [...new Set(Category.map((cat) => cat.menu_name))];
 
   const isFormValid = productName && productImage && productCategory && productPrice && productQuantity;
 
@@ -46,12 +44,6 @@ const AddProduct = () => {
   };
 
 
-    // Function to update the state when Sidebar changes
-      const handleSidebarStateChange = (newState) => {
-        setIsOpen(newState);
-    };
-
-
   // Handle form submission
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -74,52 +66,55 @@ const AddProduct = () => {
           price: parseFloat(productPrice), // Ensure price is a number
           stock: parseInt(productQuantity), // Ensure quantity is an integer
           image: productImage,
+           statu:'',
+           oldPrice:null
       };
 
       dispatch(Add(newProduct));
-      navigate(`/admin/Dashboard/${role}/Products`);
+      onClose()
   };
     return (
-        <div className="content">
-            <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
-            <div className={`all-badges container ${isOpen ? 'push-main-content' : 'ml-20'}`}>
-                <Navbar  pagePath='Add Product'/>
-                <div className="pages">
-                <form className="add-product-form" onSubmit={handleSubmit}>
-            <p className="form-title">Add Product</p>
+         <div className='update-product-form'>
+            <form className="form" onSubmit={handleSubmit}>
+            <p className="title">Add Product</p>
             {error && <span className="error-message">{error}</span>}
 
-            <div className="form-group">
+            <label>
                 <input
                     type="text"
                     placeholder="Enter Product Name"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    className='input'
                 />
-            </div>
+            </label>
 
             {/* File Upload Section */}
-            <div className="form-group">
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="file-input"
-                    id="file-upload"
-                />
-                <label htmlFor="file-upload" className="file-upload-label">
-                    {productImage ? (
-                        <img src={productImage} alt="Preview" className="image-preview" />
-                    ) : (
-                        <span>Click to upload an image</span>
-                    )}
-                </label>
-            </div>
+            <label>
+                   <div className='form-group'>
+                   <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="file-input input"
+                            id="file-upload"
+                        />
+                        <label htmlFor="file-upload" className="file-upload-label">
+                            {productImage ? (
+                                <img src={productImage} alt="Preview" className="image-update-preview" />
+                            ) : (
+                                <span>Click to upload an image</span>
+                            )}
+                        </label>
+                   </div>
+            </label>
 
-            <div className="form-group">
+            <label className="form-group">
                 <select
                     value={productCategory}
                     onChange={(e) => setProductCategory(e.target.value)}
+                    className="input"
+
                 >
                     <option value="">Choose your Category</option>
                     {categories.map((category, index) => (
@@ -128,38 +123,40 @@ const AddProduct = () => {
                         </option>
                     ))}
                 </select>
-            </div>
+            </label>
 
-            <div className="form-group">
+            <label className="form-group">
                 <input
                     type="number"
                     placeholder="Enter Price"
                     value={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
-                />
-            </div>
+                    className="input"
 
-            <div className="form-group">
+                />
+            </label>
+
+            <label className="form-group">
                 <input
                     type="number"
                     placeholder="Enter Quantity"
                     value={productQuantity}
+                    className="input"
                     onChange={(e) => setProductQuantity(e.target.value)}
                 />
-            </div>
+            </label>
 
-            <button
-                type="submit"
-                className={`submit-button ${isFormValid ? 'active' : 'disabled'}`}
-                disabled={!isFormValid}
-            >
-                Add
-            </button>
+            <div className='action-and-cancel-btn'>
+               <button className="update-product-btn" type="submit">Add Product</button>
+               <button className="cancel-product-btn" type="submit" onClick={onClose}>cancel</button>
+            </div>  
         </form>
-                </div>
-            </div>
-        </div>
+         </div>
+
     );
 };
 
 export default AddProduct;
+AddProduct.propTypes = {
+    onClose: PropTypes.func.isRequired,
+};

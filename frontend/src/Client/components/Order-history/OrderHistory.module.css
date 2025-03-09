@@ -1,6 +1,6 @@
 .orderHistoryContainer {
   max-width: 960px;
-  margin: 30px auto;
+  margin: 80px auto;
   padding: 25px;
   background: linear-gradient(135deg, #ffffff, #f8f9fa);
   border-radius: 20px;
@@ -44,6 +44,7 @@
 .backIcon {
   font-size: 0.9rem;
   transition: transform 0.3s ease;
+  transform: scaleX(-1)
 }
 .orderHistoryHeader h1 {
   font-size: 30px;
@@ -365,7 +366,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .orderHistoryContainer {
-    margin:   10px 15px;
+    margin:   40px 15px;
     padding: 20px;
   }
 

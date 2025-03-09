@@ -15,6 +15,7 @@ import OrderSuccess from "./components/Ordersuccess/OrderSuccess";
 import AddReview from "./components/Reviews/AddReview";
 import OrderHistory from "./components/Order-history/OrderHistory";
 import Settings from "./components/AccountSettings/AccountSetting";
+import { ContactForm } from "./components/ContactUs/ContactUs";
 
 
 
@@ -35,8 +36,7 @@ function ClientRoutes() {
       <Route path="/addreview" element={<AddReview />} />
       <Route path="/orderhistory" element={<OrderHistory />} />
       <Route path="/settings" element={<Settings />} />
-
-
+      <Route path="/contactUs" element={<ContactForm />} />
 
 
     </Routes>

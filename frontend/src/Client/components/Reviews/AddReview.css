@@ -54,6 +54,8 @@
 .backIcon {
   font-size: 0.9rem;
   transition: transform 0.3s ease;
+  transform: scaleX(-1)
+
 }
 
 .form-group label {

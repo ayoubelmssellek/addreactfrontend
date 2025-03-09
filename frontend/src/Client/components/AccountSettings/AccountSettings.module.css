@@ -48,6 +48,8 @@
   .backIcon {
     font-size: 0.9rem;
     transition: transform 0.3s ease;
+    transform: scaleX(-1)
+
   }
   
   .settingsSections {
@@ -178,6 +180,32 @@
   .toggle.active .toggleSwitch {
     transform: translateX(22px);
   }
+.logoutButton {
+    width: 100%;
+    padding: 1rem;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+  }
+  
+  .logoutButton:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+  }
+  
+  .logoutIcon {
+    font-size: 1.2rem;
+  }
+  
+
   
   @media (max-width: 480px) {
     .settingsContainer {
@@ -223,4 +251,8 @@
       width: 100%;
       padding: 0.7rem;
     }
+    .logoutButton {
+        padding: 1rem;
+        font-size: 1rem;
+      }
   }

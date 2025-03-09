@@ -15,7 +15,7 @@ const MobileFoodSlider = () => {
   const listimg = useSelector((state) => state.client.food_list) || [];
 
   const slides = listimg
-        .slice(-10)
+        .slice(0, 8)
         .map((item) => ({
             _id: item._id,
             image: item.image,
@@ -94,12 +94,15 @@ const MobileFoodSlider = () => {
                 <div className="text-overlay">
                   <h3 className="product-name">{slide.name}</h3>
                   <span className="product-category">{slide.category}</span>
-                  <span className="slide-price">
-                    <bdi>درهم</bdi> {slide.price}
-                  </span>
-                  <button className="button-order" onClick={(e) => addAndGoToCart(slide, e)}>
+                 <div className="prixandbutton">
+                 <button className="button-order" onClick={(e) => addAndGoToCart(slide, e)}>
                     اطلب الآن
                   </button>
+                 <span className="slide-price">
+                    <bdi>درهم</bdi> {slide.price}
+                  </span>
+                 
+                 </div>
                 </div>
               </div>
             ))}

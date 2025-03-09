@@ -1,11 +1,10 @@
-/* تصميم الـ Navbar */
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   left: 0;
   padding: 8px 20px;
-  background-color: #f4f4f8;
+  background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
@@ -19,7 +18,7 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-.gustologo{
+.gustologo {
   width: 70px;
   height: auto;
   border-radius: 50%;
@@ -40,40 +39,68 @@
   transition: color 0.3s ease;
 }
 
-/* تأثير على الروابط عند التمرير */
+.userProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: rtl;
+  gap: 1rem;
+}
+
+.userAvatars {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, red 0%, tomato 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+
+
+
+
 .navbar ul li:hover {
   color: tomato;
   border-bottom: 2px solid tomato;
 }
 
-/* التأكيد على الرابط النشط */
 .navbar ul .active {
   color: tomato;
   border-bottom: 2px solid tomato;
 }
-.active{
+
+.active {
   color: tomato;
 }
-/* منطقة الأزرار والـIcons */
-.navbar-right {
+
+.navbarRight {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 50px;
 }
 
-.navbar-right img {
+.navbarRight img {
   cursor: pointer;
   width: 25px;
   height: 25px;
 }
 
-#navbar-icon {
+#navbarIcon {
   position: relative;
 }
 
-#navbar-icon span {
+#navbarIcon   span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: -8px;
+  top: -5px;
   right: -8px;
   background-color: red;
   color: white;
@@ -82,8 +109,7 @@
   border-radius: 50%;
 }
 
-/* مظهر الزر */
-.navbar-right button {
+.navbarRight button {
   width: 130px;
   font-size: 14px;
   padding: 8px 16px;
@@ -95,21 +121,17 @@
   transition: background-color 0.3s ease;
 }
 
-.navbar-right button:hover {
+.navbarRight button:hover {
   background-color: rgb(255, 157, 71);
 }
 
-/* تصميم الهامبرغر على الهواتف */
 .hamburger {
   display: none;
   font-size: 28px;
   cursor: pointer;
 }
 
-/* تصميم الاستجابة في النسخ الصغيرة */
 @media (max-width: 768px) {
-
-
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -118,10 +140,10 @@
     top: 0px;
     width: 100%;
     left: 0;
-   height:  50px;
-
+    height: 50px;
   }
-  .navbar .gustologo{
+
+  .navbar .gustologo {
     width: 45px;
     height: auto;
     position: absolute;
@@ -130,28 +152,30 @@
     border-radius: 50%;
   }
 
-.navbar-bag{
-  display: none;
-}
-  .navbar .navbar-right {
-      display: flex;
-      gap: 40px;
-      position: absolute;
-      top: 6px;
-      right: 10px;
+  .navbarBag {
+    display: none;
+  }
+
+  .navbar .navbarRight {
+    display: flex;
+    gap: 40px;
+    position: absolute;
+    top: 0px;
+    right: 10px;
   }
 }
-.mobileVersion{
+
+.mobileVersion {
   position: absolute;
   bottom: 0;
 }
-/* General styling for the bottom navbar */
+
 .mobileVersion {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #f4f4f8;
+  background-color: white;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -170,33 +194,32 @@
   text-align: center;
 }
 
-
-
 .mobileVersion span {
   font-size: 10px;
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   color: #333;
 }
+
 .mobileVersion p {
   font-size: 15px;
   margin-bottom: 0rem;
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   color: #333;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
-  .navbar ul, .navbar-right {
-    display: none; /* Hide the desktop navbar */
+  .navbar ul, .navbarRight {
+    display: none;
   }
-  
 
   .mobileVersion {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height:70px;
+    height: 60px;
+  }
 
-
+  .userProfile {
+    margin-top: 5px;
   }
 }

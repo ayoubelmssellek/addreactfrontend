@@ -7,7 +7,7 @@ const LocationSection = () => {
   const encodedAddress = encodeURIComponent(restaurantAddress);
 
   return (
-    <section dir='rtl' className={styles['location-section']}>
+    <section dir='rtl' i className={styles['location-section']}>
       <div className={styles['location-container']}>
         <h2 className={styles['section-title']}>اعثر على مطعمنا</h2>
         
