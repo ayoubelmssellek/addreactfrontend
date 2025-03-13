@@ -4,15 +4,15 @@ import { useParams } from 'react-router-dom';
 import { MdAddShoppingCart, MdRemove, MdAdd, MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from './ProductPageDiskTopVersion.module.css';
 import { addTo_Cart, addTo_Favorite, DicreaseQuantity } from '../../actions/action';
+import { food_list } from '../../../Admin/assets/assets';
 
 const ProductPageDiskTopVersion = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const {  cartItems, Favorite } = useSelector((state) => state.client);
-  const produits= useSelector((state) => state.admin.produits)
-  console.log(produits);
+  // const produits= useSelector((state) => state.admin.produits)
   
-  const product = produits.find(item => item._id == id);
+  const product = food_list.find(item => item._id == id);
   const inCart = cartItems.some(item => item._id == id);
   const isFavorite = Favorite.some(item => item._id == id);
 

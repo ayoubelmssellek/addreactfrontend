@@ -1,0 +1,218 @@
+.content {
+  display: flex;
+  min-height: 100vh;
+}
+
+.allBadges {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.pushMainContent {
+  margin-left: 175px; /* Adjust based on your sidebar width */
+}
+
+.ml20 {
+  margin-left: 50px;
+}
+.pages {
+  padding: 20px;
+}
+
+.ordersPage {
+  margin-top: 60px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.statCard {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.statIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgBlue {
+  background: #dbeafe;
+}
+
+.bgGreen {
+  background: #d1fae5;
+}
+
+.bgPurple {
+  background: #e9d5ff;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.filterSection {
+  margin: 20px 0;
+}
+
+.filterGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.filterButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.ordersTable {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.ordersTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ordersTable th,
+.ordersTable td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.ordersTable th {
+  background: #f9fafb;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.ordersTable td {
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.ordersTable tr:hover {
+  background: #f9fafb;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusInPreparation {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.statusReady {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.statusDelivered {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* Custom Select Styles */
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.statusSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.statusSelect:hover {
+  border-color: #3b82f6;
+}
+
+.statusSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+  transition: transform 0.2s ease;
+}
+
+.statusSelect:focus + .selectIcon {
+  transform: translateY(-50%) rotate(180deg);
+}

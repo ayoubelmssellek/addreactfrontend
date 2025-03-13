@@ -1,70 +1,135 @@
-/* Circular icon container */
-.Sales-icons {
-  width: 60px; /* Adjust size as needed */
-  height: 60px; /* Adjust size as needed */
+/* SalesDonutChart.css */
+.sales-donut-container {
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin-top: 45px;
+  width: 100%;
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  padding: 10px;
-  margin: 0 auto; /* Centers the circle itself in the card */
+  justify-content: space-between;
 }
 
-
-
-/* Grid container */
-.Sales-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns by default */
-  gap: 16px; /* Spacing between grid items */
-  margin-top: 15px;
+.chart-title {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-/* Medium screens and above (3 columns) */
-@media (min-width: 768px) {
-  .Sales-grid {
-    grid-template-columns: repeat(6, 1fr); /* 6 columns for medium screens and above */
+.chart-content {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+}
+
+.donut-svg {
+  display: flex;
+}
+
+.donut-svg:hover {
+  transform: scale(1.02);
+}
+
+.donut-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  fill: #1f2937;
+  letter-spacing: -0.5px;
+}
+
+.sales-legend {
+  display: flex
+  ;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 400px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.legend-item:hover {
+  background-color: #f8fafc;
+  transform: translateY(-2px);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.legend-category {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+.legend-sales {
+  font-size: 0.75rem;
+  color: #64748b;
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+}
+
+.legend-percentage {
+  color: #94a3b8;
+  font-size: 0.7em;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .chart-content {
+    flex-direction: column;
+  }
+  
+  .sales-legend {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .donut-svg {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .donut-total {
+    font-size: 1.5rem;
   }
 }
 
-/* Grid items (divs containing images) */
-/* .Sales-grid div {
-  width: 180px; 
-} */
-
-.Sales-label {
-  font-size: 20px;
-  text-align: center; /* Center the label text */
-  font-weight: 500;
-
+@media (max-width: 400px) {
+  .sales-donut-container {
+    padding: 1rem;
+  }
+  
+  .chart-title {
+    font-size: 1.25rem;
+  }
+  
+  .legend-item {
+    gap: 0.5rem;
+  }
 }
-
-.Sales-value {
-  text-align: center; /* Center the value text */
-  font-weight: 700;
-  font-size: 1.1em;
-}
-
-
-
-
-
-
-
-.Sales-card {
-  background: white;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* .Sales-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */

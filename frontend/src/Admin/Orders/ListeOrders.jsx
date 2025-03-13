@@ -1,136 +1,205 @@
 import { useState } from 'react';
-import {Truck , Utensils, Table,Eye  } from 'lucide-react';
-import { useSelector } from 'react-redux';
+import { Truck, Utensils, Table, Eye, ChevronDown } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
 import Sidebar from '../Sidebar/Sidebar';
 import Navbar from '../Navbar/Navbar';
-import './ListeOrders.css';
+import styles from './ListeOrders.module.css';
 import { Link, useParams } from 'react-router-dom';
-
+import { UpdateOrderStatus } from '../Redux/Action';
 
 const ListeOrders = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState('all');
-  const listorders = useSelector((state) => state.admin.orders || []);
-  const {role}=useParams()
-  console.log(listorders);
- 
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedDeliveryType, setSelectedDeliveryType] = useState('all');
+  const listorders = useSelector((state) => state.admin?.orders );
+  const dispatch = useDispatch();
+  const { role } = useParams();
 
-  const orderTypes = ['dine-in', 'delivery'];
-  
-  const statusColors = {
-    pending: 'status-pending',
-    'in-progress': 'status-in-progress',
-    completed: 'status-completed',
-    cancelled: 'status-cancelled',
+  // Status configuration
+  const statusConfig = {
+    'in-preparation': {
+      label: 'جاري التحضير',
+      className: styles.statusInPreparation,
+    },
+    ready: {
+      label: 'جاهز',
+      className: styles.statusReady,
+    },
+    delivered: {
+      label: 'تم التوصيل',
+      className: styles.statusDelivered,
+    },
   };
 
-  // Calculate total amount for each order
-  const ordersWithTotal = listorders.map((order) => ({
-    ...order,
-    totalAmount: order.items.reduce((total, item) => total + item.price * item.Quantity, 0),
-  }));
+  const handleStatusChange = (orderId, newStatus) => {
+    dispatch(UpdateOrderStatus(orderId, newStatus));
+  };
 
-  // Filter orders based on selected type
-  const filteredOrders =
-    selectedType === 'all'
-      ? ordersWithTotal
-      : ordersWithTotal.filter((order) => order.type === selectedType);
+  // Combined filter logic
+  const filteredOrders = listorders.filter((order) => {
+    const statusMatch =
+      selectedStatus === 'all' || order.statu === selectedStatus;
+    const typeMatch =
+      selectedDeliveryType === 'all' || order.deliveryType === selectedDeliveryType;
+    return statusMatch && typeMatch;
+  });
 
-  // Handle sidebar state change
   const handleSidebarStateChange = (newState) => {
     setIsOpen(newState);
   };
 
   return (
-    <div className="content">
+    <div className={styles.content}>
       <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
-      <div className={`all-badges ${isOpen ? 'push-main-content' : 'ml-20'}`}>
+      <div
+        className={`${styles.allBadges} ${
+          isOpen ? styles.pushMainContent : styles.ml20
+        }`}
+      >
         <Navbar pagePath="Orders Management" />
-        <div className="pages">
-          <div className="orders-page">
-            <div className="stats-grid">
-              <div className="stat-card">
-                <div className="stat-icon bg-blue">
-                  <Utensils className="icon" />
+        <div className={styles.pages}>
+          <div className={styles.ordersPage}>
+            <div className={styles.statsGrid}>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.bgBlue}`}>
+                  <Utensils className={styles.icon} />
                 </div>
                 <div>
-                  <p className="stat-label">Total Orders</p>
-                  <p className="stat-value">
-                    {ordersWithTotal.length}
+                  <p className={styles.statLabel}>Total Orders</p>
+                  <p className={styles.statValue}>{listorders.length}</p>
+                </div>
+              </div>
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.bgGreen}`}>
+                  <Table className={styles.icon} />
+                </div>
+                <div>
+                  <p className={styles.statLabel}>Takeaway Orders</p>
+                  <p className={styles.statValue}>
+                    {listorders.filter((o) => o.type === 'order').length}
                   </p>
                 </div>
               </div>
-              <div className="stat-card">
-                <div className="stat-icon bg-green">
-                  <Table className="icon" />
+              <div className={styles.statCard}>
+                <div className={`${styles.statIcon} ${styles.bgPurple}`}>
+                  <Truck className={styles.icon} />
                 </div>
                 <div>
-                  <p className="stat-label">pickup Orders</p>
-                  <p className="stat-value">
-                    {ordersWithTotal.filter((o) => o.deliveryType === 'pickup').length}
-                  </p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon bg-purple">
-                  <Truck className="icon" />
-                </div>
-                <div>
-                  <p className="stat-label">Delivery Orders</p>
-                  <p className="stat-value">
-                    {ordersWithTotal.filter((o) => o.deliveryType !== 'pickup').length}
+                  <p className={styles.statLabel}>Delivery Orders</p>
+                  <p className={styles.statValue}>
+                    {listorders.filter((o) => o.street === '56545').length}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="filter-buttons">
-              <button
-                className={`filter-button ${selectedType === 'all' ? 'active' : ''}`}
-                onClick={() => setSelectedType('all')}
-              >
-                All Orders
-              </button>
-              {orderTypes.map((type) => (
-                <button
-                  key={type}
-                  className={`filter-button ${selectedType === type ? 'active' : ''}`}
-                  onClick={() => setSelectedType(type)}
-                >
-                  {type}
-                </button>
-              ))}
+            {/* Filter Section */}
+            <div className={styles.filterSection}>
+              <div className={styles.filterGroup}>
+                <div className={styles.filterButtons}>
+                  <button
+                    className={`${styles.filterButton} ${
+                      selectedStatus === 'all' ? styles.active : ''
+                    }`}
+                    onClick={() => setSelectedStatus('all')}
+                  >
+                    All Status
+                  </button>
+                  {Object.keys(statusConfig).map((status) => (
+                    <button
+                      key={status}
+                      className={`${styles.filterButton} ${
+                        selectedStatus === status ? styles.active : ''
+                      }`}
+                      onClick={() => setSelectedStatus(status)}
+                    >
+                      {statusConfig[status].label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className={styles.filterButtons}>
+                  <button
+                    className={`${styles.filterButton} ${
+                      selectedDeliveryType === 'all' ? styles.active : ''
+                    }`}
+                    onClick={() => setSelectedDeliveryType('all')}
+                  >
+                    All Types
+                  </button>
+                  <button
+                    className={`${styles.filterButton} ${
+                      selectedDeliveryType === 'pickup' ? styles.active : ''
+                    }`}
+                    onClick={() => setSelectedDeliveryType('pickup')}
+                  >
+                    Pickup
+                  </button>
+                  <button
+                    className={`${styles.filterButton} ${
+                      selectedDeliveryType === 'delivery' ? styles.active : ''
+                    }`}
+                    onClick={() => setSelectedDeliveryType('delivery')}
+                  >
+                    Delivery
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="orders-table">
+            {/* Orders Table */}
+            <div className={styles.ordersTable}>
               <table>
                 <thead>
                   <tr>
                     <th>Order ID</th>
                     <th>Customer</th>
                     <th>Phone</th>
-                    <th>date</th>
+                    <th>Date</th>
                     <th>Status</th>
+                    <th>Change Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredOrders.map((order) => (
                     <tr key={order.id}>
-                      <td>
-                        <span className="order-id">#{order.id}</span>
-                      </td>
+                      <td>#{order.orderNumber}</td>
                       <td>{order.name}</td>
                       <td>{order.phonenumber}</td>
+                      <td>{order.date}</td>
                       <td>
-                         13/03/2025 17:23
+                        <span
+                          className={`${styles.status} ${
+                            statusConfig[order.statu]?.className
+                          }`}
+                        >
+                          {statusConfig[order.statu]?.label || order.statu}
+                        </span>
                       </td>
                       <td>
-                        <span className={`status ${statusColors['pending']}`}>Pending</span>
+                        <div className={styles.selectWrapper}>
+                          <select
+                            value={order.statu}
+                            onChange={(e) =>
+                              handleStatusChange(order.id, e.target.value)
+                            }
+                            className={styles.statusSelect}
+                          >
+                            {Object.keys(statusConfig).map((status) => (
+                              <option key={status} value={status}>
+                                {statusConfig[status].label}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className={styles.selectIcon} size={16} />
+                        </div>
                       </td>
-                      <td> 
-                        <Link to={`/admin/Dashboard/${role}/ViewOrderDetails/${order.id}`}>
-                            <Eye color='#3b82f6'/>
+                      <td>
+                        <Link
+                          to={`/admin/Dashboard/${role}/ViewOrderDetails/${order.id}`}
+                        >
+                          <Eye color="#3b82f6" />
                         </Link>
                       </td>
                     </tr>

@@ -1,0 +1,165 @@
+/* Main container */
+.content {
+    display: flex;
+    min-height: 100vh;
+  }
+
+.pages {
+    padding: 1rem;
+}
+  .categoriesContainer {
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .categoriesContainerPush {
+    margin-left: 175px; /* Adjust based on your sidebar width */
+  }
+  
+  .categoriesContainerNoPush {
+    margin-left: 80px; /* Adjust for collapsed sidebar */
+  }
+  
+  /* Header section */
+  .headerSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    margin-top: 5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .headerSection h2 {
+    font-size: 1.8rem;
+    color: #1f2937;
+    margin: 0;
+  }
+  
+  /* Add category button */
+  .addCategoryBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .addCategoryBtn:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+  }
+  
+  /* Categories grid */
+  .categoriesGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  /* Category badge */
+  .categoryBadge {
+     width: 100px;
+     flex: 1 1 24%;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 18px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .categoryBadge:hover {
+    transform: translateY(-2px);
+   
+  }
+  
+  /* Category image */
+  .categoryImage {
+    width: 180px;
+    height: 140px;
+    border-radius: 5px;
+
+  }
+  
+  /* Category meta */
+  .categoryMeta h3 {
+
+    font-size: 1.25rem;
+    color: #1f2937;
+    font-weight: 600;
+  }
+  
+  .productCount {
+    font-size: 0.9rem;
+    color: #6b7280;
+    display: block;
+  }
+  
+  /* Badge footer */
+  .badgeFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+   
+  }
+  .badgeFooter:nth-child(2) div:nth-child(2){
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    gap: 10px;
+  }
+  /* Status pill */
+  .statusPill {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .statusPillAvailable {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+  
+  .statusPillAvailable:hover {
+    background-color: #bbf7d0;
+  }
+  
+  .statusPillOutOfStock {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+  
+  .statusPillOutOfStock:hover {
+    background-color: #fecaca;
+  }
+  
+  /* View button */
+  .viewButton {
+    color: #3b82f6;
+    padding: 7px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .viewButton:hover {
+    background-color: #bfdbfe;
+    transform: scale(1.1);
+  }
+  
+

@@ -1,15 +1,10 @@
 import Sidebar from "../Sidebar/Sidebar";
 import { useState } from "react";
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import './Dashboard.css';
 import Badge from "../Badges/Badges";
 import OrderTable from "../OrderTable/OrderTable";
 import Navbar from "../Navbar/Navbar";
-import OverViewChart from "../OverviewChart/OverViewChart";
-import MostOrderProduct from "../MostOrderProduct/MostOrderProduct";
-import MostSalesProducts from "../MostSalesProducts/MostSalesProducts";
-
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+import ProductTypes from "../Types/Types";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +22,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className={`main-content ${isOpen ? 'push-main-content' : 'ml-20'}`}>
+      <div className={`main-content ${isOpen ? 'push-main-content' : ''}`}>
         <Navbar pagePath='Dashboard' />
 
         <div className="first-section">
@@ -41,18 +36,18 @@ const Dashboard = () => {
             <OrderTable />
           </div>
           <div className="Most-Sales-Product">
-            <MostSalesProducts/>
+            <ProductTypes/>
           </div>
 
         </div>
-        <div className="therd-section">
+        {/* <div className="therd-section">
         <div className="Most-Ordered-Product">
             <MostOrderProduct/>
           </div>
           <div className="orders-and-sales-chart">
             <OverViewChart />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

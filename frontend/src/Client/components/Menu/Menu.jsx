@@ -1,7 +1,7 @@
 import React from "react";
 import { MdAddShoppingCart, MdRemove, MdAdd, MdVisibility, MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import styles from '../FoodDesplay/Fooddesplay.module.css';
-import { assets } from "../../assets/assets";
+import { food_list } from "../../../Admin/assets/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from "../../actions/action";
 import { Link } from "react-router-dom";

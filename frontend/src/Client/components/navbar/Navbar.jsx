@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './navbar.module.css';
-import { assets } from '../../assets/assets';
+import { food_list } from "../../../Admin/assets/assets";
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from 'primereact/button';
@@ -32,7 +32,7 @@ export const Navbar = () => {
   return (
     <div className={styles.navbar}>
       <Link to='/'>
-        <img className={styles.gustologo} src={assets.gusto_logo} alt="Logo" />
+        <img className={styles.gustologo} src={''} alt="Logo" />
       </Link>
       
       <div className={styles.mobileVersion}>

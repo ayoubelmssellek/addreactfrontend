@@ -23,6 +23,21 @@ export const EditState=(name,newState)=>{
     payload:{name,newState}
   }
 }
+
+export const UpdateStatusByType = (type,newState) => ({
+  type: 'UPDATE_TYPE_STATUS',
+  payload: {type,newState}
+});
+export const UpdateStatusFromType = (type,newState) => ({
+  type: 'UPDATE_TYPE_STATUS_FROM_TYPES',
+  payload: {type,newState}
+});
+
+
+export const UpdateStatus = (id, status) => ({
+  type: 'UPDATE_PRODUCT_STATUS',
+  payload: { id, status }
+});
 // Employees Actions
 
 export const AddEmployee=(id)=>{
@@ -63,11 +78,7 @@ export const UpdateOrderStatus = (orderId, newStatus) => ({
   payload: { orderId, newStatus },
 });
 
-// delete category by name
-export const UPDATE_CATEGORY_STATUS = (name,status) => ({
-  type: 'UPDATE_CATEGORY_STATUS',
-  payload: { name, status }
-});
+
 // Add category 
 export const ADDCategory = (newCategory) => ({
   type: 'ADD_Category',

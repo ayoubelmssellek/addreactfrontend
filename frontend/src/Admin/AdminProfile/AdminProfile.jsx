@@ -1,148 +1,118 @@
-import './AdminProfile.css'; // Import the CSS file
 import { useState } from 'react';
-import { Clock, Package, Users as UsersIcon } from 'lucide-react';
+import { User, Edit, Save } from "lucide-react";
+import styles from './AdminProfile.module.css';
 
-const SAMPLE_ORDERS = [
-  {
-    id: '1',
-    items: [
-      { menuItemId: '1', quantity: 2 },
-      { menuItemId: '2', quantity: 1, specialInstructions: 'No sauce' },
-    ],
-    type: 'dine-in',
-    status: 'in-progress',
-    tableNumber: 5,
-    customer: 'John Doe',
-    totalAmount: 54.97,
-    createdAt: new Date('2025-03-20T12:30:00'),
-    updatedAt: new Date('2025-03-20T12:35:00'),
-  },
-  {
-    id: '2',
-    items: [
-      { menuItemId: '1', quantity: 2 },
-      { menuItemId: '2', quantity: 1, specialInstructions: 'No sauce' },
-    ],
-    type: 'delivery',
-    status: 'delivery',
-    tableNumber: 5,
-    customer: 'John Doe',
-    totalAmount: 54.97,
-    createdAt: new Date('2025-03-20T12:30:00'),
-    updatedAt: new Date('2025-03-20T12:35:00'),
-  },
-];
+import Sidebar from '../Sidebar/Sidebar';
+import Navbar from '../Navbar/Navbar';
 
-export function AdminProfile() {
-  const [orders] = useState(SAMPLE_ORDERS);
-  const [selectedType, setSelectedType] = useState('all');
+export default function AdminProfile() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState({
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    phone: '123-456-7890',
+    address: '123 Main St, Anytown, USA',
+  });
 
-  const orderTypes = ['dine-in', 'takeaway', 'delivery'];
-  const statusColors = {
-    pending: 'status-pending',
-    'in-progress': 'status-in-progress',
-    completed: 'status-completed',
-    cancelled: 'status-cancelled',
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfile(prevProfile => ({
+      ...prevProfile,
+      [name]: value,
+    }));
   };
 
-  const filteredOrders =
-    selectedType === 'all'
-      ? orders
-      : orders.filter((order) => order.type === selectedType);
+  const handleSave = () => {
+    setIsEditing(false);
+    alert('Profile saved successfully!');
+  };
+
+  const handleSidebarStateChange = (newState) => {
+    setIsOpen(newState);
+  };
 
   return (
-    <div className="orders-page">
-      <div className="header">
-        <h1>Orders Management</h1>
-      </div>
+    <div className={styles.content}>
+      <Sidebar isOpen={isOpen} onSidebarStateChange={handleSidebarStateChange} />
+      <div className={`${styles.allBadges} ${isOpen ? styles.pushMainContent : styles.ml20}`}>
+        <Navbar pagePath='Profile' />
+        <div className={styles.pages}>
+          <div className={styles.profileCard}>
+            <div className={styles.cardHeader}>
+              <h2 className={styles.cardTitle}>
+                <User className={styles.iconSpacing} />
+                Admin Profile
+              </h2>
+              <p className={styles.cardDescription}>
+                View and edit your profile information.
+              </p>
+            </div>
 
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon bg-blue">
-            <UsersIcon className="icon" />
-          </div>
-          <div>
-            <p className="stat-label">Dine-in Orders</p>
-            <p className="stat-value">
-              {orders.filter((o) => o.type === 'dine-in').length}
-            </p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon bg-green">
-            <Package className="icon" />
-          </div>
-          <div>
-            <p className="stat-label">Takeaway Orders</p>
-            <p className="stat-value">
-              {orders.filter((o) => o.type === 'takeaway').length}
-            </p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon bg-purple">
-            <Clock className="icon" />
-          </div>
-          <div>
-            <p className="stat-label">Delivery Orders</p>
-            <p className="stat-value">
-              {orders.filter((o) => o.type === 'delivery').length}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="filter-buttons">
-        <button
-          className={`filter-button ${selectedType === 'all' ? 'active' : ''}`}
-          onClick={() => setSelectedType('all')}
-        >
-          All Orders
-        </button>
-        {orderTypes.map((type) => (
-          <button
-            key={type}
-            className={`filter-button ${selectedType === type ? 'active' : ''}`}
-            onClick={() => setSelectedType(type)}
-          >
-            {type}
-          </button>
-        ))}
-      </div>
+            <div className={styles.cardContent}>
+              <div className={styles.formGrid}>
+                <div className={styles.formRow}>
+                  <label htmlFor="name">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    value={profile.name}
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                  />
+                </div>
+                
+                <div className={styles.formRow}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    value={profile.email}
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                  />
+                </div>
 
-      <div className="orders-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Total</th>
-              <th>Created At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredOrders.map((order) => (
-              <tr key={order.id}>
-                <td>
-                  <span className="order-id">#{order.id}</span>
-                </td>
-                <td>{order.customer}</td>
-                <td className="capitalize">{order.type}</td>
-                <td>
-                  <span className={`status ${statusColors[order.status]}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td>${order.totalAmount.toFixed(2)}</td>
-                <td>{new Date(order.createdAt).toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                <div className={styles.formRow}>
+                  <label htmlFor="phone">Phone</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    value={profile.phone}
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                  />
+                </div>
+
+                <div className={styles.formRow}>
+                  <label htmlFor="address">Address</label>
+                  <input
+                    id="address"
+                    name="address"
+                    value={profile.address}
+                    onChange={handleChange}
+                    readOnly={!isEditing}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.cardFooter}>
+              {isEditing ? (
+                <button className={`${styles.button} ${styles.saveButton}`} onClick={handleSave}>
+                  <Save className={styles.buttonIcon} />
+                  Save
+                </button>
+              ) : (
+                <button className={`${styles.button} ${styles.editButton}`} onClick={() => setIsEditing(true)}>
+                  <Edit className={styles.buttonIcon} />
+                  Edit
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-export default AdminProfile;

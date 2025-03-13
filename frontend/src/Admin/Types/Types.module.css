@@ -1,0 +1,122 @@
+.tableContainer {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tableHeader {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 100px;
+}
+
+.statusFilter {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.clearButton {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  border: 1px solid #ddd;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clearButton:hover {
+  background-color: #e0e0e0;
+}
+
+.clearButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.typesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.typesTable th {
+  background-color: #4f46e5;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.typesTable td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.statusBadge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  cursor: pointer;
+  border: none;
+}
+
+.paginationControls {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.paginationButton {
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: #f1f3f4;
+  border-color: #c4c7c9;
+}
+
+.paginationButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 0.9em;
+  color: #5f6368;
+}
+
+.available {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.outOfStock {
+  background-color: #ffc0c0;
+  color: #ff5757;
+}

@@ -1,19 +1,19 @@
-import { food_list } from "../../Client/assets/assets";
 import { Employees } from "../assets/assets";
+import {menu_list} from '../assets/assets'
+import { food_list } from "../assets/assets";
+import { type_list } from "../assets/assets";
 const initialState = {
-    produits:localStorage.getItem('products')?
-    JSON.parse(localStorage.getItem('products')):[],
+    produits:food_list,
     Employees:Employees,
     Notifications:localStorage.getItem('notificationListe')?
     JSON.parse(localStorage.getItem('notificationListe')):[],
-    ListeCategory:localStorage.getItem('ListeCategories')?
-    JSON.parse(localStorage.getItem('ListeCategories')):[],
-    reviews: localStorage.getItem('review')?
-    JSON.parse(localStorage.getItem('review')) :[]  ,
+    ListeCategory:menu_list,
+    ListeTypes:type_list,
     orders:localStorage.getItem('orders')?
     JSON.parse(localStorage.getItem('orders')) :[]
 };
 export const reducer = (state = initialState, action) => {
+
     switch (action.type) {
         case 'ADD_PRODUCT':{
             let allproducts=[...state.produits,action.payload]
@@ -35,7 +35,37 @@ export const reducer = (state = initialState, action) => {
                 produits: updatedproduit
                 
             };
-    }
+      }
+      case 'UPDATE_PRODUCT_STATUS':
+        return {
+          ...state,
+          produits: state.produits.map(product =>
+            product._id === action.payload.id 
+              ? { ...product, status: action.payload.status } 
+              : product
+          )
+        };
+
+        case 'UPDATE_TYPE_STATUS':
+            return {
+                ...state,
+                produits: state.produits.map(product => 
+                product.type === action.payload.type && product.disponible==false
+                    ? { ...product, status: action.payload.newState }
+                    : product
+                )
+        };
+        
+        case 'UPDATE_TYPE_STATUS_FROM_TYPES':
+            return {
+                ...state,
+                ListeTypes: state.ListeTypes.map(product => 
+                product.type_name === action.payload.type 
+                    ? { ...product, status: action.payload.newState }
+                    : product
+                )
+        };
+
         case 'ADD_Employee':
             return { ...state, Employees: [...state.Employees,action.payload] };
 
@@ -63,26 +93,6 @@ export const reducer = (state = initialState, action) => {
 
         case 'ClearNotificationListe':
             return { ...state, Notifications: [] };
-
-
-        case 'UPDATE_CATEGORY_STATUS': {
-            const { name, status } = action.payload;
-        
-            // Update the category status
-            const updatedCategories = state.ListeCategory.map((category) =>
-                category.menu_name === name
-                    ? { ...category, statu: status }
-                    : category
-            );
-        
-       
-             localStorage.setItem('ListeCategories', JSON.stringify(updatedCategories));
-        
-            return {
-                ...state,
-                ListeCategory: updatedCategories,
-            };
-            }
             
   
         case 'ADD_Category':{

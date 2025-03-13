@@ -3,13 +3,14 @@ import './DisktopFoodSlider.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTo_Cart } from '../../actions/action';
 import { useNavigate } from 'react-router-dom';
+import { food_list } from '../../../Admin/assets/assets';
 
 const DesktopFoodSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const timeoutRef = useRef(null);
   const disbatch=useDispatch()
   const navigate=useNavigate()
-    const food_list = useSelector((state) => state.admin.produits);
+    // const food_list = useSelector((state) => state.admin.produits);
         
   const slides = food_list
     // .flatMap(order => order.items)

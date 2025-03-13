@@ -2,92 +2,87 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '../../Sidebar/Sidebar';
 import Navbar from '../../Navbar/Navbar';
-import { FaTrash, FaEdit } from 'react-icons/fa';
-import { TiPlus } from "react-icons/ti";
+import { FaTrash, FaEdit,FaTimes } from 'react-icons/fa';
+import { BsPersonFillAdd } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { DeleteEmployee } from '../../Redux/Action';
 import AddEmployees from '../AddEmployee/AddEmployee';
 import UpdateEmployees from '../UpdateEmployee/UpdateEmployees';
 import Modal from '../../Modal/Modal';
-import './Employees.css';
+import '../ListEmployees/Employees.css';
+import { LuChevronsUpDown } from "react-icons/lu";
+
 
 const Employees = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const Empls = useSelector((state) => state.admin.Employees); // Get employees from Redux store
-    const [showAddModal, setShowAddModal] = useState(false); // State for Add Employee modal
-    const [showUpdateModal, setShowUpdateModal] = useState(false); // State for Update Employee modal
-    const [selectedEmployee, setSelectedEmployee] = useState(null); // State to store the selected employee for editing
+    const Empls = useSelector((state) => state.admin.Employees);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
     
     const dispatch = useDispatch();
-
     const [searchByName, setSearchByName] = useState('');
     const [searchByRole, setSearchByRole] = useState('');
-
-    // State to manage count for each employee
     const [counts, setCounts] = useState({});
 
-    // Filter Employees for name and role
+    // Get unique names and roles for filters
+    const uniqueNames = [...new Set(Empls.map(emp => emp.Name_Employee))];
+    const uniqueRoles = [...new Set(Empls.map(emp => emp.Role_employee))];
+
     const FiltringEmpls = Empls.filter((emp) => {
-        const matchesName = emp.Name_Employee.toLowerCase().includes(searchByName.toLowerCase());
-        const matchesRple = emp.Role_employee.toLowerCase().includes(searchByRole.toLowerCase());
-        return matchesName && matchesRple; // Show Employees that match both name and role filters
+        const matchesName = searchByName ? emp.Name_Employee === searchByName : true;
+        const matchesRple = searchByRole ? emp.Role_employee === searchByRole : true;
+        return matchesName && matchesRple;
     });
 
-    // Function to update the state when Sidebar changes
-    const handleSidebarStateChange = (newState) => {
-        setIsOpen(newState);
-    };
+    const handleSidebarStateChange = (newState) => setIsOpen(newState);
 
     const handleDelete = (id) => {
-        const confirm = window.confirm("Are you sure you want to delete this Employee?");
-        if (confirm) {
-            dispatch(DeleteEmployee(id)); // Dispatch delete action to Redux
+        if (window.confirm("Are you sure you want to delete this Employee?")) {
+            dispatch(DeleteEmployee(id));
         }
     };
 
-    // Function to clear all filters
     const clearFilters = () => {
         setSearchByName('');
         setSearchByRole('');
     };
 
-    // Function to increment count for a specific employee
     const increment = (id) => {
-        setCounts((prevCounts) => ({
-            ...prevCounts,
-            [id]: (prevCounts[id] || 0) < 4 ? (prevCounts[id] || 0) + 1 : prevCounts[id],
+        setCounts(prev => ({
+            ...prev,
+            [id]: (prev[id] || 0) < 4 ? (prev[id] || 0) + 1 : prev[id],
         }));
     };
 
-    // Function to decrement count for a specific employee
     const decrement = (id) => {
-        setCounts((prevCounts) => ({
-            ...prevCounts,
-            [id]: (prevCounts[id] || 0) > 0 ? (prevCounts[id] || 0) - 1 : prevCounts[id],
+        setCounts(prev => ({
+            ...prev,
+            [id]: (prev[id] || 0) > 0 ? (prev[id] || 0) - 1 : prev[id],
         }));
     };
 
-    // Function to handle Add Employee button click
-    const handleAddClick = () => {
-        setShowAddModal(true); // Show the Add Employee modal
-    };
-
-    // Function to handle Edit Employee button click
-    const handleEditClick = (employee) => {
-        setSelectedEmployee(employee); // Set the selected employee for editing
-        setShowUpdateModal(true); // Show the Update Employee modal
-    };
-
-    // Function to close the Add Employee modal
-    const handleCloseAddModal = () => {
-        setShowAddModal(false); // Hide the Add Employee modal
-    };
-
-    // Function to close the Update Employee modal
-    const handleCloseUpdateModal = () => {
-        setShowUpdateModal(false); // Hide the Update Employee modal
-        setSelectedEmployee(null); // Clear the selected employee
-    };
+        // Function to handle Add Employee button click
+        const handleAddClick = () => {
+            setShowAddModal(true); // Show the Add Employee modal
+        };
+    
+        // Function to handle Edit Employee button click
+        const handleEditClick = (employee) => {
+            setSelectedEmployee(employee); // Set the selected employee for editing
+            setShowUpdateModal(true); // Show the Update Employee modal
+        };
+    
+        // Function to close the Add Employee modal
+        const handleCloseAddModal = () => {
+            setShowAddModal(false); // Hide the Add Employee modal
+        };
+    
+        // Function to close the Update Employee modal
+        const handleCloseUpdateModal = () => {
+            setShowUpdateModal(false); // Hide the Update Employee modal
+            setSelectedEmployee(null); // Clear the selected employee
+        };
 
     return (
         <div className="content">
@@ -96,40 +91,51 @@ const Employees = () => {
                 <Navbar pagePath='Employees' />
                 <div className="pages">
                     {Empls.length !== 0 ? (
-                        <div className='Filter-Add-ListEmployees'>
+                        <div className='ListEmployees'>
                             <div className="filters-container">
-                                {/* Filter by Name */}
+                                {/* Name Filter */}
                                 <div className="filter-input">
-                                    <input
-                                        type="text"
-                                        placeholder=" "
-                                        value={searchByName}
-                                        onChange={(e) => setSearchByName(e.target.value)}
-                                    />
-                                    <label>Filter by Name</label>
+                                    <select
+                                    value={searchByName}
+                                    onChange={(e) => setSearchByName(e.target.value)}
+                                    className="filter-select"
+                                    >
+                                    <option value="">All Names</option>
+                                    {uniqueNames.map(name => (
+                                        <option key={name} value={name}>{name}</option>
+                                    ))}
+                                    </select>
+                                    <LuChevronsUpDown className="select-icon" />
                                 </div>
 
-                                {/* Filter by Role */}
+                                {/* Role Filter */}
                                 <div className="filter-input">
-                                    <input
-                                        type="text"
-                                        placeholder=" "
+                                    <select
                                         value={searchByRole}
                                         onChange={(e) => setSearchByRole(e.target.value)}
-                                    />
-                                    <label>Filter by Role</label>
+                                        className="filter-select"
+                                    >
+                                        <option value="">All Roles</option>
+                                        {uniqueRoles.map(role => (
+                                            <option key={role} value={role}>{role}</option>
+                                        ))}
+                                    </select>
+                                    <LuChevronsUpDown className="select-icon" />
                                 </div>
 
-                                {/* Clear Filters Button */}
                                 <button onClick={clearFilters} className="clear-button">
-                                    Clear
+                                    <FaTimes /> Clear Filters
                                 </button>
                             </div>
-                            <div style={{ display: 'flex', marginBlock: "20px" }}>
+
+                            <div className='Add-Employee-icon'>
                                 <Link onClick={handleAddClick}>
-                                    <TiPlus size={30} color='#1A73E8' className="menu-icon" />
+                                    <BsPersonFillAdd size={30} color='#1A73E8' className="menu-icon" />
+
                                 </Link>
+
                             </div>
+
                             <table className="products-table">
                                 <thead>
                                     <tr>
@@ -150,41 +156,21 @@ const Employees = () => {
                                             <td>{employee.Salary_Employee} DH</td>
                                             <td>{employee.Total_Avence_Employee} DH</td>
                                             <td>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                <div className="count-container">
                                                     <button
                                                         onClick={() => decrement(employee.Id_Employee)}
                                                         disabled={(counts[employee.Id_Employee] || 0) === 0}
-                                                        style={{
-                                                            padding: '5px 10px',
-                                                            fontSize: '20px',
-                                                            cursor: (counts[employee.Id_Employee] || 0) === 0 ? 'not-allowed' : 'pointer',
-                                                            backgroundColor: (counts[employee.Id_Employee] || 0) === 0 ? '#ccc' : '#007bff',
-                                                            color: 'red',
-                                                            border: 'none',
-                                                            borderRadius: '5px',
-                                                            fontWeight: 600
-                                                        }}
+                                                        className="count-button decrement"
                                                     >
                                                         -
                                                     </button>
-
-                                                    <span style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                                                    <span className="count-value">
                                                         {counts[employee.Id_Employee] || 0}
                                                     </span>
-
                                                     <button
                                                         onClick={() => increment(employee.Id_Employee)}
                                                         disabled={(counts[employee.Id_Employee] || 0) === 4}
-                                                        style={{
-                                                            padding: '5px 10px',
-                                                            fontSize: '20px',
-                                                            cursor: (counts[employee.Id_Employee] || 0) === 4 ? 'not-allowed' : 'pointer',
-                                                            backgroundColor: (counts[employee.Id_Employee] || 0) === 4 ? '#ccc' : '#007bff',
-                                                            color: 'green',
-                                                            border: 'none',
-                                                            borderRadius: '5px',
-                                                            fontWeight: 600
-                                                        }}
+                                                        className="count-button increment"
                                                     >
                                                         +
                                                     </button>
@@ -211,19 +197,23 @@ const Employees = () => {
                             </table>
                         </div>
                     ) : (
-                        <div>
-                            <h3>You dont have any Employees</h3>
+                        <div className="empty-state">
+                            <h3>No Employees Found</h3>
+                            <p>Click the + icon to add a new employee</p>
                         </div>
                     )}
                 </div>
-                {/* Add Employee Modal */}
+
+                {/* Modals */}
                 <Modal isOpen={showAddModal} onClose={handleCloseAddModal}>
                     <AddEmployees onClose={handleCloseAddModal} />
                 </Modal>
-
-                {/* Update Employee Modal */}
                 <Modal isOpen={showUpdateModal} onClose={handleCloseUpdateModal}>
-                    <UpdateEmployees Code={selectedEmployee?.Id_Employee} employee={selectedEmployee} onClose={handleCloseUpdateModal} />
+                    <UpdateEmployees 
+                        Code={selectedEmployee?.Id_Employee} 
+                        employee={selectedEmployee} 
+                        onClose={handleCloseUpdateModal} 
+                    />
                 </Modal>
             </div>
         </div>

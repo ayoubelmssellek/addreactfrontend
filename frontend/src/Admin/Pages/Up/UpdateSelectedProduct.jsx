@@ -2,210 +2,192 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Edit } from '../../Redux/Action';
 import PropTypes from 'prop-types';
-import './UpdateSelectedProduct.css';
+import styles from '../Up/UpdateSelectedProduct.module.css';
 
 const UpdateSelectedProduct = ({ Code, product, onClose }) => {
-    const dispatch = useDispatch();
-    const Category = useSelector((state) => state.admin.ListeCategory);
-    const products = useSelector((state) => state.admin.produits);
+  const dispatch = useDispatch();
+  const Category = useSelector((state) => state.admin.ListeCategory);
+  const [error, setError] = useState('');
 
-     const [error, setError] = useState('');
-    
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    price: '',
+    type: '',
+    image: '',
+    status: ''
+  });
 
-    // State to manage form fields
-    const [formData, setFormData] = useState({
-        name: '',
-        category: '',
-        price: '',
-        stock: '',
-        image: '',
-        statu: ''
-    });
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        type: product.type,
+        image: product.image,
+        status: product.status || 'available'
+      });
+    }
+  }, [product]);
 
-      // Validate price and quantity
-    const validatePriceAndQuantity = (price, stock) => {
-        if (isNaN(price) || isNaN(stock)) {
-            return 'Price and Quantity must be valid numbers';
-        }
-        if (price <= 0 || stock <= 0) {
-            return 'Price and Quantity must be positive numbers';
-        }
-        return '';
-    };
-    // Populate form fields when the product prop changes
-    useEffect(() => {
-        if (product) {
-            setFormData({
-                name: product.name,
-                category: product.category,
-                price: product.price,
-                stock: product.stock,
-                image: product.image,
-                statu: product.statu || 'available' // Default to 'available' if statu is not provided
-            });
-        }
-    }, [product]);
+  const validatePriceAndQuantity = (price) => {
+    if (isNaN(price)) return 'Price must be a valid number';
+    if (price <= 0) return 'Price must be a positive number';
+    return '';
+  };
 
-    const isFormValid = formData.name && formData.image && formData.category && formData.price && formData.stock && formData.statu;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-    // Handle input changes
-    const handleInputChange = (e) => {
-        
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({ ...prev, image: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // Handle file input changes
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({
-                    ...formData,
-                    image: reader.result
-                });
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    if (!formData.name || !formData.image || !formData.category || 
+        !formData.price || !formData.type || !formData.status) {
+      setError('Please fill all fields');
+      return;
+    }
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!isFormValid) {
-            setError('Please fill all fields');
-            return;
-        }
-    
-        const priceQuantityError = validatePriceAndQuantity(formData.price, formData.stock);
-        if (priceQuantityError) {
-            setError(priceQuantityError);
-            return;
-        }
+    const validationError = validatePriceAndQuantity(formData.price);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
 
-        // Create the updated product object
-        const updatedProduct = {
-            ...product, // Keep the existing product data
-            ...formData // Overwrite with the updated form data
-        };
-        console.log('up',updatedProduct);
-        
+    const updatedProduct = { ...product, ...formData };
+    dispatch(Edit(Code, updatedProduct));
+    onClose();
+  };
 
-        // Dispatch the update action
-        dispatch(Edit(Code, updatedProduct));
+  return (
+    <div className={styles.formContainer}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <p className={styles.title}>Update Product</p>
+        {error && <span className={styles.errorMessage}>{error}</span>}
 
-        // Close the modal
-        onClose();
-    };
-
-    return (
-        <div className="update-product-form">
-            <form className="form" onSubmit={handleSubmit}>
-                <p className="title">Update Product</p>
-                {error && <span className="error-message">{error}</span>}
-
-                <div className="flex">
-                    <label>
-                        <input
-                            className="input"
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            placeholder="Name"
-                            
-                        />
-                    </label>
-                    <label>
-                        <input
-                            className="input"
-                            type="number"
-                            name="price"
-                            value={formData.price}
-                            onChange={handleInputChange}
-                            placeholder="Price"
-                            
-                        />
-                    </label>
-                </div>
-                <div className="flex">
-                    <label>
-                        <input
-                            className="input"
-                            type="number"
-                            name="stock"
-                            value={formData.stock}
-                            onChange={handleInputChange}
-                            placeholder="Stock"
-                            
-                        />
-                    </label>
-                    <label>
-                        <select
-                          disabled= {formData.statu=='out_of_stock'}
-                            className="input"
-                            name="statu"
-                            value={formData.statu}
-                            onChange={handleInputChange}
-                            
-                        >
-                            <option value="available">Available</option>
-                            <option value="out_of_stock">Out of Stock</option>
-                        </select>
-                    </label>
-                </div>
-                <label>
-                    <select
-                        className="input"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleInputChange}
-                        
-                    >
-                        {Category.map((cat, index) => (
-                            <option key={index} value={cat.menu_name}>
-                                {cat.menu_name}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    {/* File Upload Section */}
-                    <div className="form-group">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="file-input"
-                            id="file-upload"
-                        />
-                        <label htmlFor="file-upload" className="file-upload-label">
-                            {formData.image ? (
-                                <img src={formData.image} alt="Preview" className="image-update-preview" />
-                            ) : (
-                                <span>Click to upload an image</span>
-                            )}
-                        </label>
-                    </div>
-                </label>
-               <div className='action-and-cancel-btn'>
-               <button className="update-product-btn" type="submit">Update</button>
-               <button className="cancel-product-btn" type="submit" onClick={onClose}>cancel</button>
-               </div>
-            </form>
+        <div className={styles.flex}>
+          <label>
+            <input
+              className={styles.input}
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="Product Name"
+            />
+          </label>
+          <label>
+            <input
+              className={styles.input}
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleInputChange}
+              placeholder="Price"
+            />
+          </label>
         </div>
-    );
+
+        <div className={styles.flex}>
+          <label>
+            <input
+              className={styles.input}
+              type="text"
+              name="type"
+              value={formData.type}
+              onChange={handleInputChange}
+              placeholder="Product Type"
+            />
+          </label>
+          <label>
+            <select
+              className={styles.input}
+              name="status"
+              value={formData.status}
+              onChange={handleInputChange}
+              disabled={formData.status === 'out_of_stock'}
+            >
+              <option value="available">Available</option>
+              <option value="out_of_stock">Out of Stock</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <select
+            className={styles.input}
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+          >
+            {Category.map((cat, index) => (
+              <option key={index} value={cat.menu_name}>
+                {cat.menu_name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <div className={styles.formGroup}>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className={styles.fileInput}
+            id="fileUpload"
+          />
+          <label htmlFor="fileUpload" className={styles.fileUploadLabel}>
+            {formData.image ? (
+              <img 
+                src={formData.image} 
+                alt="Preview" 
+                className={styles.imageUpdatePreview} 
+              />
+            ) : (
+              <span>Click to upload product image</span>
+            )}
+          </label>
+        </div>
+
+        <div className={styles.actionAndCancelBtn}>
+          <button 
+            type="submit" 
+            className={styles.updateProductBtn}
+            disabled={!formData.name || !formData.image}
+          >
+            Update Product
+          </button>
+          <button 
+            type="button" 
+            className={styles.cancelProductBtn}
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+UpdateSelectedProduct.propTypes = {
+  Code: PropTypes.number.isRequired,
+  product: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default UpdateSelectedProduct;
-
-UpdateSelectedProduct.propTypes = {
-    product: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    Code: PropTypes.number.isRequired,
-};

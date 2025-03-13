@@ -4,11 +4,11 @@ import Navbar from "../Navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCheck, FaTimes, FaStar, FaRegStar } from "react-icons/fa";
 import { HandelReview } from "../Redux/Action";
-import './Reviews.css';
+import './Reviews.css'
 
 const Reviews = () => {
-  const reviews = useSelector((state) => state.admin.reviews);
   const [isOpen, setIsOpen] = useState(false);
+  const reviews=useSelector((stat)=>stat.client.reviews)
   const dispatch = useDispatch();
 
   const handleSidebarStateChange = (newState) => {
@@ -18,7 +18,7 @@ const Reviews = () => {
   const handleAcceptReview = (id) => {
     dispatch(HandelReview(id, 'Accepted'));
   };
-
+ 
   const handleRejectReview = (id) => {
     dispatch(HandelReview(id, 'Rejected'));
   };
@@ -29,7 +29,7 @@ const Reviews = () => {
       <div className={`all-badges ${isOpen ? 'push-main-content' : 'ml-20'}`}>
         <Navbar pagePath="Reviews" />
         <div className="pages">
-          {reviews.length !== 0 ? (
+          {reviews.length != 0 ? (
             <div className="products-container">
               <div className="table-container">
                 <table className="products-table">
@@ -100,4 +100,4 @@ const Reviews = () => {
   );
 };
 
-export default Reviews;
+export default Reviews

@@ -1,5 +1,5 @@
 import { cart_amount } from "../actions/action";
-import { food_list } from "../assets/assets";
+import { food_list } from "../../Admin/assets/assets";
 import { toast } from "react-toastify";
 
 const initState = {

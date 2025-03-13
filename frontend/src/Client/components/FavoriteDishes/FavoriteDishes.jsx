@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from '../../actions/action';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdAddShoppingCart, MdArrowBackIos, MdRemove, MdAdd, MdVisibility, MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { assets } from '../../assets/assets';
 import styles from './FavoriteDishes.module.css';
+import { food_list } from '../../../Admin/assets/assets';
 import { Navbar } from '../navbar/Navbar';
 import { FaArrowRight } from 'react-icons/fa';
 

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { FaHome, FaSignOutAlt, FaChevronLeft, FaChevronRight,FaThList, FaTh,FaGift,FaUser  } from "react-icons/fa";
+import { FaSignOutAlt,FaThList, FaTh,FaGift,FaUser  } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import {  MdPeople } from "react-icons/md";
+import { LuPanelLeftClose,LuPanelLeftOpen   } from "react-icons/lu";
 
 
 import './Sidebar.css';
@@ -24,7 +25,6 @@ export default function Sidebar({ isOpen, onSidebarStateChange }) {
 
     window.addEventListener("resize", checkWindowSize);
     checkWindowSize();
-
     return () => {
       window.removeEventListener("resize", checkWindowSize);
     };
@@ -34,8 +34,17 @@ export default function Sidebar({ isOpen, onSidebarStateChange }) {
     <div className={`sidebar ${isOpen ? "sidebar-open" : "sidebar-closed"}`}>
       {/* Sidebar Content */}
       <div className="sidebar-header">
-        <FaHome className="sidebar-icon" />
         <h2 className={`sidebar-title ${isOpen ? "visible" : "hidden"}`}>Gusto Dakhla</h2>
+              {/* Toggle Button (Only visible when expanded) */}
+      {isOpen ? (
+        <button onClick={toggleSidebar} className="close-button">
+          <LuPanelLeftClose size={25} color='#fff' className="close-icon" />
+        </button>
+      ):
+      <button onClick={toggleSidebar} className="close-button">
+      <LuPanelLeftOpen  size={35} color='#fff' className="close-icon" />
+      </button>
+    }
       </div>
 
       {/* Menu */}
@@ -92,16 +101,7 @@ export default function Sidebar({ isOpen, onSidebarStateChange }) {
         </a>
       </div>
 
-      {/* Toggle Button (Only visible when expanded) */}
-      {isOpen ? (
-        <button onClick={toggleSidebar} className="close-button">
-          <FaChevronLeft color='#fff' className="close-icon" />
-        </button>
-      ):
-      <button onClick={toggleSidebar} className="close-button">
-      <FaChevronRight color='#fff' className="close-icon" />
-      </button>
-    }
+
     </div>
   );
 }

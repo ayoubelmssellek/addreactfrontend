@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { addTo_Cart, DicreaseQuantity } from '../../actions/action';
 import { MdAddShoppingCart } from 'react-icons/md';
-import { assets } from '../../assets/assets';
+// import { assets } from '../../Admin/assets/assets';
+// import { food_list } from "../../../Admin/assets/assets";
 
 const SearchIcon = () => (
   <svg

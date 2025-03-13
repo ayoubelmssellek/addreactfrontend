@@ -10,21 +10,21 @@
   }
   
   .sidebar-open {
-    width: auto;
-    max-width: 20rem; /* max-w-xs */
+     width: 180px;
   }
   
   .sidebar-closed {
-    width: 4rem; /* w-16 */
+    max-width: 5rem; /* max-w-xs */
   }
   
   /* Sidebar Header */
   .sidebar-header {
-    padding: 1rem;
+    padding: .2rem;
     margin-top: 1.25rem; /* mt-5 */
     border-bottom: 1px solid #d5dce7; /* border-gray-700 */
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   
   .sidebar-icon {
@@ -51,7 +51,7 @@
   /* Sidebar Menu */
   .sidebar-menu {
     flex: 1;
-    padding: 1rem;
+    padding: .2rem;
     padding-top: 1.5rem; /* py-6 */
     padding-bottom: 1.5rem; /* py-6 */
   }
@@ -100,12 +100,8 @@
   
   /* Close Button */
   .close-button {
-    position: absolute;
-    right: -0.9375rem; /* right-[-15px] */
-    background-color: #2d3748; /* bg-gray-800 */
     color: white;
     padding: 0.5rem; /* p-2 */
-    border-radius: 9999px; /* rounded-full */
     border: none;
     cursor: pointer;
     outline: none;
@@ -118,6 +114,6 @@
   
   /* Sidebar Footer */
   .sidebar-footer {
-    padding: 1rem;
+    padding: .2rem;
     border-top: 1px solid #d5dce7; /* border-gray-700 */
   }

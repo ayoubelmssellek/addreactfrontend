@@ -4,12 +4,12 @@ import styles from './Fooddesplay.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from "../../actions/action";
 import { Link } from "react-router-dom";
+import { food_list } from "../../../Admin/assets/assets";
 
 const FoodDisplay = () => {
   const [showDrinkPopup, setShowDrinkPopup] = useState(false);
     const CartItems = useSelector((state) => state.client.cartItems);
-    const food_list = useSelector((state) => state.admin.produits);
-    console.log(food_list);
+    // const food_list = useSelector((state) => state.admin.produits);
     
     const FavoriteList = useSelector((state) => state.client.Favorite);
     const dispatch = useDispatch();
@@ -73,13 +73,13 @@ const FoodDisplay = () => {
                                     {produit.name}
                                 </Link>
                                 <div className={styles.PriceContainer}>
-                                    <span className={styles.ProductPrice}>
-                                        <bdi>درهم</bdi> {produit.oldPrice <  produit.price ? produit.oldPrice : ''}
+                                    <span dir="ltr" className={styles.ProductPrice}>
+                                        <bdi>درهم</bdi> { produit.price }
                                     </span>
                                     {/* {produit.oldPrice && ( */}
-                                        <span className={styles.oldPrice}>
+                                        {/* <span className={styles.OldPrice}>
                                           {produit.price}
-                                        </span>
+                                        </span> */}
                                     {/* )} */}
                                 </div>
                             </div>

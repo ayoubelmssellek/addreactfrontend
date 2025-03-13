@@ -1,0 +1,95 @@
+.content {
+    display: flex;
+    min-height: 100vh;
+}
+
+.allBadges {
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.pushMainContent {
+    margin-left: 175px;
+}
+
+.ml20 {
+    margin-left: 50px;
+}
+
+.pages {
+    padding: 20px;
+}
+
+.viewMoreAboutProduct {
+    margin-top: 20px;
+}
+
+.tableContainer {
+    overflow-x: auto;
+}
+
+.productsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+}
+
+.productsTable th {
+    background-color: #e3e2e2;
+    color: 000;
+    padding: 12px;
+    text-align: left;
+}
+
+.productsTable td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.productsTable img {
+    border-radius: 4px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownButton {
+    padding: 6px 12px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1;
+    min-width: 120px;
+}
+
+.dropdown:hover .dropdownContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.dropdownContent a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdownContent a:hover {
+    background-color: #f5f5f5;
+}

@@ -26,12 +26,12 @@
 .main-content {
   flex: 1;
   width: 100%;
-  margin-left: 5rem; /* Default margin when sidebar is closed */
+  margin-left: 3rem; /* Default margin when sidebar is closed */
 }
 
 .push-main-content {
   width: 100%;
-  margin-left: 12rem; /* Adjusted margin when sidebar is open */
+  margin-left: 11rem; /* Adjusted margin when sidebar is open */
 }
 
 /* Navbar */
@@ -75,15 +75,18 @@
   padding: 1rem;
 }
 .second-section .orders-table {
-  width: 68%;
+  width: 55%;
   flex: 2;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  height: fit-content;
+
 }
 
 .second-section  .Most-Sales-Product {
-  width: 30%;
+  width: 44%;
+  height: fit-content;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;

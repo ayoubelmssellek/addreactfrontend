@@ -1,0 +1,293 @@
+.content {
+  display: flex;
+  min-height: 100vh;
+}
+
+.allBadges {
+  flex-grow: 1;
+  transition: margin 0.3s ease;
+}
+
+.pushMainContent {
+  margin-left: 175px; /* Adjust based on your sidebar width */
+}
+
+.ml20 {
+  margin-left: 50px;
+}
+
+.pages {
+  padding: 20px;
+}
+
+.productsContainer {
+  border-radius: 8px;
+  margin-top: 70px;
+}
+
+.filtersContainer {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  padding: 5px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.filterInput {
+  flex: 1 1 250px;
+  min-width: 200px;
+  position: relative;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectWrapper select {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  appearance: none;
+  font-size: 14px;
+  background: white;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  pointer-events: none;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.inputIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  pointer-events: none;
+}
+
+.clearButton {
+  background: white;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 10px 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clearButton:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.inputWrapper label {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  transition: 0.2s ease all;
+  background: white;
+  padding: 0 5px;
+  pointer-events: none;
+}
+
+.inputWrapper input:focus ~ label,
+.inputWrapper input:not(:placeholder-shown) ~ label {
+  top: 0;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #007bff;
+}
+
+.tableProductsContainer {
+  margin-top: 20px;
+}
+
+.productsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+}
+
+.productsTable th {
+  background-color: #f8f9fa;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.productsTable td {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  color: #212529;
+}
+
+.productsTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+.productImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+}
+
+.popup input[type="checkbox"] {
+  display: none;
+}
+
+.burger {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.popupWindow {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  margin-top: 5px;
+}
+
+.popupWindow ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popupWindow li button {
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.popupWindow li button:hover {
+  background-color: #f8f9fa;
+}
+
+.noProducts {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a73e8;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s;
+  width: fit-content;
+}
+
+
+.popupWindow {
+  position: absolute;
+  right: 0; /* Align to right */
+  top: 100%;
+  z-index: 1000;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.popupWindow ul {
+  margin: 0;
+}
+
+.popupWindow li button {
+  width: 100%;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.viewAction {
+  color: #2196F3; /* Blue */
+}
+
+.editAction {
+  color: #4CAF50; /* Green */
+}
+
+.deleteAction {
+  color: #f44336; /* Red */
+}
+
+/* Icon colors */
+.popupWindow li button svg {
+  color: white;
+}
+
+
+.statusButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.statusButton:hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+.Available{
+  background-color: #d1fae5;
+  color: #059669;
+}

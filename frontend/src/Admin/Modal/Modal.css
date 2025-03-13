@@ -12,12 +12,9 @@
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* position: relative; */
-    max-width: 500px; 
 }
 
 .modal-close {
@@ -29,11 +26,7 @@
     font-size: 20px;
     cursor: pointer;
 }
-.modal-content .update-product-form{
-    display: flex;
-    flex-direction: column;
 
-}
 .modal-content .update-product-form form .form-group-up{ 
    line-height: 1;
 

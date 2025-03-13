@@ -9,8 +9,10 @@ const Reviews = () => {
   const [expandedText, setExpandedText] = useState(null);
   const navigate = useNavigate();
   const reviews = useSelector((state) => state.admin.reviews);
-  console.log(reviews);
-  const acceptedReviews=reviews.filter(item=>item.statu == "Accepted")
+  
+  // Filter accepted reviews
+  const acceptedReviews = reviews.filter(item => item.status === "Accepted");
+
   const handleImageClick = (image) => {
     setFullImage(image);
   };
@@ -51,7 +53,7 @@ const Reviews = () => {
                     </div>
                     <div className={styles.userDetails}>
                       <h3 className={styles.userName}>{review.personName}</h3>
-                      <div className={styles.reviewDate}>٢٠ أكتوبر ٢٠٢٣</div>
+                      <div className={styles.reviewDate}>{new Date(review.date).toLocaleDateString('ar-EG')}</div>
                     </div>
                   </div>
                   <div className={styles.rating}>
@@ -64,36 +66,33 @@ const Reviews = () => {
                 </div>
 
                 <div className={styles.cardBody}>
-                  <div 
-                    className={styles.dishImage} 
-                    onClick={() => handleImageClick(review.image)}
-                  >
-                    <img src={review.image} alt={review.plateName} />
-                    <div className={styles.imageOverlay}>انقر للتكبير</div>
-                  </div>
+                <div className={styles.dishImage} onClick={() => handleImageClick(review.image)}>
+                  {review.image && <img src={review.image} alt={review.plateName} />}
+                  <div className={styles.imageOverlay}>انقر للتكبير</div>
+                </div>
                   <div className={styles.dishInfo}>
-                          <h4 className={styles.dishName}>{review.plateName}</h4>
-                          <div 
-                            className={`${styles.reviewText} ${
-                              expandedText === review.id ? styles.reviewTextExpanded : ''
-                            }`}
-                          >
-                            {review.text}
-                          </div>
-                          {review.text.length > 100 && (
-                            <button 
-                              className={styles.toggleTextBtn}
-                              onClick={() => toggleText(review.id)}
-                              aria-label={expandedText === review.id ? "Collapse review" : "Expand review"}
-                            >
-                              {expandedText === review.id ? (
-                                <FaChevronUp className={styles.toggleIcon} />
-                              ) : (
-                                <FaChevronDown className={styles.toggleIcon} />
-                              )}
-                            </button>
-                          )}
-                        </div>
+                    <h4 className={styles.dishName}>{review.plateName}</h4>
+                    <div 
+                      className={`${styles.reviewText} ${
+                        expandedText === review.id ? styles.reviewTextExpanded : ''
+                      }`}
+                    >
+                      {review.text}
+                    </div>
+                    {review.text.length > 100 && (
+                      <button 
+                        className={styles.toggleTextBtn}
+                        onClick={() => toggleText(review.id)}
+                        aria-label={expandedText === review.id ? "Collapse review" : "Expand review"}
+                      >
+                        {expandedText === review.id ? (
+                          <FaChevronUp className={styles.toggleIcon} />
+                        ) : (
+                          <FaChevronDown className={styles.toggleIcon} />
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

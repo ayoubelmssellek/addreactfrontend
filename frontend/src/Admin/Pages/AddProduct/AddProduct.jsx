@@ -2,161 +2,170 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Add } from '../../Redux/Action';
 import PropTypes from 'prop-types';
+import styles from './AddProduct.module.css';
 
-import './AddProduct.css';
+const AddProduct = ({ onClose }) => {
+    const products = useSelector((state) => state.admin.produits);
+    const Category = useSelector((state)=> state.admin.ListeCategory)
+    const dispatch = useDispatch();
 
-const AddProduct = ({onClose}) => {
-  const products = useSelector((state) => state.admin.produits); 
-  const Category = localStorage.getItem('ListeCategories')?
-  JSON.parse(localStorage.getItem('ListeCategories')):[];
-  const dispatch = useDispatch();
+    const [formData, setFormData] = useState({
+        name: '',
+        image: '',
+        category: '',
+        price: '',
+        type: ''
+    });
 
-  const [productName, setProductName] = useState('');
-  const [productImage, setProductImage] = useState('');
-  const [productCategory, setProductCategory] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productQuantity, setProductQuantity] = useState('');
-  const [error, setError] = useState('');
+    const [error, setError] = useState('');
 
-  // Fetching categories from existing products
-  const categories = [...new Set(Category.map((cat) => cat.menu_name))];
+    const categories = [...new Set(Category.map((cat) => cat.menu_name))];
 
-  const isFormValid = productName && productImage && productCategory && productPrice && productQuantity;
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, image: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-  // Handle image file change
-  const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-          const imageUrl = URL.createObjectURL(file);
-          setProductImage(imageUrl);
-      }
-  };
+    const validatePrice = (price) => {
+        if (isNaN(price)) return 'Price must be a valid number';
+        if (price <= 0) return 'Price must be a positive number';
+        return '';
+    };
 
-  // Validate price and quantity
-  const validatePriceAndQuantity = (price, stock) => {
-      if (isNaN(price) || isNaN(stock)) {
-          return 'Price and Quantity must be valid numbers';
-      }
-      if (price <= 0 || stock <= 0) {
-          return 'Price and Quantity must be positive numbers';
-      }
-      return '';
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
+        if (!formData.name || !formData.image || !formData.category || 
+            !formData.price || !formData.type) {
+            setError('Please fill all fields');
+            return;
+        }
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-      e.preventDefault();
+        const validationError = validatePrice(formData.price);
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
 
-      if (!isFormValid) {
-          setError('Please fill all fields');
-          return;
-      }
+        const newProduct = {
+            _id: products.length > 0 ? products[products.length - 1]._id + 1 : 1,
+            ...formData,
+            price: parseFloat(formData.price),
+            type: formData.type,
+            date_add_product: new Date().toISOString(),
+            statu: 'Available'
+        };
 
-      const priceQuantityError = validatePriceAndQuantity(productPrice, productQuantity);
-      if (priceQuantityError) {
-          setError(priceQuantityError);
-          return;
-      }
+        dispatch(Add(newProduct));
+        onClose();
+    };
 
-      const newProduct = {
-          _id: products.length > 0 ? products[products.length - 1]._id + 1 : 1, // Generate new ID
-          name: productName,
-          category: productCategory,
-          price: parseFloat(productPrice), // Ensure price is a number
-          stock: parseInt(productQuantity), // Ensure quantity is an integer
-          image: productImage,
-           statu:'',
-           oldPrice:null
-      };
-
-      dispatch(Add(newProduct));
-      onClose()
-  };
     return (
-         <div className='update-product-form'>
-            <form className="form" onSubmit={handleSubmit}>
-            <p className="title">Add Product</p>
-            {error && <span className="error-message">{error}</span>}
+        <div className={styles.formContainer}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <p className={styles.title}>Add New Product</p>
+                {error && <span className={styles.errorMessage}>{error}</span>}
 
-            <label>
-                <input
-                    type="text"
-                    placeholder="Enter Product Name"
-                    value={productName}
-                    onChange={(e) => setProductName(e.target.value)}
-                    className='input'
-                />
-            </label>
-
-            {/* File Upload Section */}
-            <label>
-                   <div className='form-group'>
-                   <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="file-input input"
-                            id="file-upload"
+                <div className={styles.flex}>
+                    <label>
+                        <input
+                            className={styles.input}
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                            placeholder="Product Name"
                         />
-                        <label htmlFor="file-upload" className="file-upload-label">
-                            {productImage ? (
-                                <img src={productImage} alt="Preview" className="image-update-preview" />
-                            ) : (
-                                <span>Click to upload an image</span>
-                            )}
-                        </label>
-                   </div>
-            </label>
+                    </label>
+                    <label>
+                        <input
+                            className={styles.input}
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                            placeholder="Price"
+                        />
+                    </label>
+                </div>
 
-            <label className="form-group">
-                <select
-                    value={productCategory}
-                    onChange={(e) => setProductCategory(e.target.value)}
-                    className="input"
+                <div className={styles.flex}>
+                    <label>
+                        <input
+                            className={styles.input}
+                            type="text"
+                            name="type"
+                            value={formData.type}
+                            onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
+                            placeholder="type"
+                        />
+                    </label>
+                    <label>
+                        <select
+                            className={styles.input}
+                            name="category"
+                            value={formData.category}
+                            onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                        >
+                            <option value="">Select Category</option>
+                            {categories.map((category, index) => (
+                                <option key={index} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
 
-                >
-                    <option value="">Choose your Category</option>
-                    {categories.map((category, index) => (
-                        <option key={index} value={category}>
-                            {category}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <div className={styles.formGroup}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className={styles.fileInput}
+                        id="fileUpload"
+                    />
+                    <label htmlFor="fileUpload" className={styles.fileUploadLabel}>
+                        {formData.image ? (
+                            <img 
+                                src={formData.image} 
+                                alt="Preview" 
+                                className={styles.imagePreview} 
+                            />
+                        ) : (
+                            <span>Click to upload product image</span>
+                        )}
+                    </label>
+                </div>
 
-            <label className="form-group">
-                <input
-                    type="number"
-                    placeholder="Enter Price"
-                    value={productPrice}
-                    onChange={(e) => setProductPrice(e.target.value)}
-                    className="input"
-
-                />
-            </label>
-
-            <label className="form-group">
-                <input
-                    type="number"
-                    placeholder="Enter Quantity"
-                    value={productQuantity}
-                    className="input"
-                    onChange={(e) => setProductQuantity(e.target.value)}
-                />
-            </label>
-
-            <div className='action-and-cancel-btn'>
-               <button className="update-product-btn" type="submit">Add Product</button>
-               <button className="cancel-product-btn" type="submit" onClick={onClose}>cancel</button>
-            </div>  
-        </form>
-         </div>
-
+                <div className={styles.actionAndCancelBtn}>
+                    <button 
+                        type="submit" 
+                        className={styles.updateProductBtn}
+                    >
+                        Add Product
+                    </button>
+                    <button 
+                        type="button" 
+                        className={styles.cancelProductBtn}
+                        onClick={onClose}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 
-export default AddProduct;
 AddProduct.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
+
+export default AddProduct;

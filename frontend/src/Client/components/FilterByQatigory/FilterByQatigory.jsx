@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { MdAddShoppingCart, MdRemove, MdAdd, MdVisibility, MdFavorite, MdFavoriteBorder, MdArrowBackIos } from "react-icons/md";
-import { assets } from "../../assets/assets";
+import { food_list } from "../../../Admin/assets/assets";
 import { Navbar } from "../navbar/Navbar";
 import styles from './FilterByQatigory.module.css';
 import { addTo_Cart, DicreaseQuantity, addTo_Favorite } from "../../actions/action";
